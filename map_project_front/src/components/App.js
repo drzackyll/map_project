@@ -1,10 +1,11 @@
 import React from 'react'
-import NewUser from './NewUser'
+import NavBar from './NavBar'
 
-function App() {
+function App(props) {
   return (
     <div className="App">
-      <NewUser />
+      <NavBar />
+      {props.children}
     </div>
   )
 }

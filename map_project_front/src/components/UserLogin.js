@@ -1,26 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
-import { createUser } from '../actions/actions'
+import { login } from '../actions/actions'
 
-function NewUser(props) {
+function UserLogin(props) {
   function handleSubmit(event) {
     event.preventDefault()
 
     const username = event.target.children.username.value
     const password = event.target.children.password.value
 
-    props.createUser(username, password)
+    props.login(username, password)
   }
 
   return (
-    <div className="NewUser">
+    <div className="UserLogin">
       <form onSubmit={handleSubmit.bind(this)}>
         <label htmlFor="username">Username: </label>
         <input id="username" type="text"/>
         <label htmlFor="password">Password: </label>
         <input id="password" type="password"/>
-        <input type="submit" value="Create User"/>
+        <input type="submit" value="Login"/>
       </form>
     </div>
   )
@@ -28,8 +28,8 @@ function NewUser(props) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    createUser
+    login
   }, dispatch)
 }
 
-export default connect(null, mapDispatchToProps)(NewUser);
+export default connect(null, mapDispatchToProps)(UserLogin);
