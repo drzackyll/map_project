@@ -12,7 +12,7 @@ function NewUser(props) {
 
     props.createUser(username, password)
   }
-  
+
   return (
     <div className="NewUser">
       <form onSubmit={handleSubmit.bind(this)}>
