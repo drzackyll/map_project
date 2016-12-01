@@ -1,8 +1,8 @@
 import React from 'react'
-
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
 
-function NavBar() {
+function NavBar(props) {
   return (
     <div className="NavBar">
       <ul>
@@ -13,4 +13,8 @@ function NavBar() {
   )
 }
 
-export default NavBar
+function mapStateToProps(state) {
+  return state
+}
+
+export default connect(mapStateToProps)(NavBar)

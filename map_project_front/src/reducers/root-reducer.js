@@ -4,22 +4,18 @@ function user(state = {}, action){
   switch (action.type) {
     case "CREATE_USER":
     case "LOGIN":
-      return action.payload.user
+      if (!!action.payload.error) {
+        alert(action.payload.error)
+        return state
+      } else {
+        localStorage.setItem("token", action.payload.jwt)
+        return action.payload.user
+      }
     default:
       return state
   }
 }
 
-function jwt(state = null, action){
-  switch (action.type) {
-    case "CREATE_USER":
-    case "LOGIN":
-      return action.payload.jwt
-    default:
-      return state
-  }
-}
-
-const rootReducer = combineReducers({ user, jwt })
+const rootReducer = combineReducers({ user })
 
 export default rootReducer
