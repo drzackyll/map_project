@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 
 function NavBar(props) {
   return (
-    <div className="NavBar">
+    <div className="NavBar row">
       <ul>
         <li><Link to='/login'>Login</Link></li>
         <li><Link to='/signup'>Sign Up</Link></li>

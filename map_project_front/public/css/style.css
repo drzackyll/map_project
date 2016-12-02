@@ -1,0 +1,13 @@
+.NavBar {
+  /*background-color: #eee;*/
+}
+
+.NavBar li {
+  float: right;
+  list-style: none;
+  margin-left: 2rem;
+}
+
+.NavBar h1 {
+  float: left;
+}
