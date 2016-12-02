@@ -12,6 +12,10 @@ class UsersController < ApplicationController
           longitude: user.longitude
         }
       }
+    else
+      render json: {
+        error: "User creation failed."
+      }
     end
   end
 

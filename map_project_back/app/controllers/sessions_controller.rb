@@ -14,7 +14,7 @@ class SessionsController < ApplicationController
       }
     else
       render json: {
-        error: "User authenication failed."
+        error: "User authentication failed."
       }
     end
   end

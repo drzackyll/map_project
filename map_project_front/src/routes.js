@@ -11,6 +11,7 @@ const Routes = (
     <IndexRoute component={Home} />
     <Route path="/login" component={UserLogin} />
     <Route path="/signup" component={NewUser} />
+    <Route path="/logout" component={NewUser} />
   </Route>
 )
 
