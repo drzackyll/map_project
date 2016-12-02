@@ -8,8 +8,8 @@ class SessionsController < ApplicationController
         jwt: jwt,
         user: {
           username: user.username,
-          latitude: user.latitude,
-          longitude: user.longitude
+          lat: user.lat,
+          lng: user.lng
         }
       }
     else

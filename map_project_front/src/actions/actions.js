@@ -44,6 +44,22 @@ export function findLocation() {
   }
 }
 
+export function setLocation(lat, lng) {
+  const promise = $.ajax({
+    url: "http://localhost:3000/users",
+    type: "PATCH",
+    data: JSON.stringify({location: {lat: lat, lng: lng}}),
+    headers: {AUTHORIZATION: localStorage.token},
+    contentType: "application/json; charset=utf-8",
+    dataType: "json"
+  })
+
+  return {
+    type: "GET_USER",
+    payload: promise
+  }
+}
+
 export function login(username, password) {
   const promise = $.ajax({
     url: "http://localhost:3000/sessions",

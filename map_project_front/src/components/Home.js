@@ -1,30 +1,26 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getUser, getLocation } from '../actions/actions'
+import { getUser, findLocation, setLocation } from '../actions/actions'
 
 function Home(props) {
-  function handleClick1() {
+  function handleClick() {
     props.getUser()
-  }
-
-  function handleClick2() {
     props.findLocation()
+    props.setLocation(props.user.lat, props.user.lng)
   }
 
   return (
     <div>
-      <button onClick={handleClick1.bind(this)}>Get user</button>
-      <br/>
-      <button onClick={handleClick2.bind(this)}>Find location</button>
+      <button onClick={handleClick.bind(this)}>Get location</button>
       <p>
         {props.user.username}
       </p>
       <p>
-        {props.user.latitude}
+        {props.user.lat}
       </p>
       <p>
-        {props.user.longitude}
+        {props.user.lng}
       </p>
     </div>
   )
@@ -37,7 +33,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     getUser,
-    getLocation
+    findLocation,
+    setLocation
   }, dispatch)
 }
 
