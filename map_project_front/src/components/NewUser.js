@@ -15,11 +15,13 @@ function NewUser(props) {
 
   return (
     <div className="NewUser">
+      <h1>Create User</h1>
       <form onSubmit={handleSubmit.bind(this)}>
         <label htmlFor="username">Username: </label>
         <input id="username" type="text"/>
         <label htmlFor="password">Password: </label>
         <input id="password" type="password"/>
+        <br/>
         <input type="submit" value="Create User"/>
       </form>
     </div>

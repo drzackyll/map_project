@@ -14,7 +14,7 @@ class UsersController < ApplicationController
       }
     else
       render json: {
-        error: "User creation failed."
+        error: user.errors.full_messages.first
       }
     end
   end

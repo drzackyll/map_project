@@ -15,11 +15,13 @@ function UserLogin(props) {
 
   return (
     <div className="UserLogin">
+      <h1>Sign In</h1>
       <form onSubmit={handleSubmit.bind(this)}>
         <label htmlFor="username">Username: </label>
         <input id="username" type="text"/>
         <label htmlFor="password">Password: </label>
         <input id="password" type="password"/>
+        <br/>
         <input type="submit" value="Login"/>
       </form>
     </div>

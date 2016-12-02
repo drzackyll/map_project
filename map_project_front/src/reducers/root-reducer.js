@@ -11,6 +11,9 @@ function user(state = {}, action){
         localStorage.setItem("token", action.payload.jwt)
         return action.payload.user
       }
+    case "LOGOUT":
+      localStorage.removeItem('token')
+      return {}
     default:
       return state
   }

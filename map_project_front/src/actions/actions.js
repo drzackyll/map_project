@@ -29,3 +29,9 @@ export function login(username, password) {
     payload: promise
   }
 }
+
+export function logout() {
+  return {
+    type: "LOGOUT"
+  }
+}

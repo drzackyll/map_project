@@ -1,16 +1,37 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+import { logout } from '../actions/actions'
+import { loggedIn } from '../utilities/utilities'
 
 function NavBar(props) {
+  function handleClick(event) {
+    event.preventDefault()
+    props.logout()
+  }
+
+  const navBarItems = () => {
+    if (loggedIn()) {
+      return (
+        <ul>
+          <li><a href='#' onClick={handleClick.bind(this)}>Log Out</a></li>
+        </ul>
+      )
+    } else {
+      return (
+        <ul>
+          <li><Link to='/login'>Login</Link></li>
+          <li><Link to='/signup'>Sign Up</Link></li>
+        </ul>
+      )
+    }
+  }
+
   return (
     <div className="NavBar row">
       <h2>MAPP</h2>
-      <ul>
-        <li><Link to='/login'>Login</Link></li>
-        <li><Link to='/signup'>Sign Up</Link></li>
-        <li><Link to='/logout'>Logout</Link></li>
-      </ul>
+      {navBarItems()}
     </div>
   )
 }
@@ -19,4 +40,10 @@ function mapStateToProps(state) {
   return state
 }
 
-export default connect(mapStateToProps)(NavBar)
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    logout
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar)
