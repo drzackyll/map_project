@@ -1,0 +1,32 @@
+#root {
+  margin-top: 0;
+}
+
+.NavBar {
+  background-color: #eee;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5.5rem;
+}
+
+.NavBar h2 {
+  float: left;
+  margin: auto 1.5rem;
+}
+
+.NavBar ul {
+  vertical-align: middle;
+}
+
+.NavBar li {
+  float: right;
+  margin: 1.5rem;
+  list-style: none;
+}
+
+
+body {
+  padding-top: 7rem;
+}
