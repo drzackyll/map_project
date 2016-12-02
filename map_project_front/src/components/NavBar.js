@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 function NavBar(props) {
   return (
     <div className="NavBar row">
+      <h2>MAPP</h2>
       <ul>
         <li><Link to='/login'>Login</Link></li>
         <li><Link to='/signup'>Sign Up</Link></li>
