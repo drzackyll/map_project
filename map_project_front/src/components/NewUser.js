@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 import { createUser } from '../actions/actions'
+import { browserHistory } from 'react-router'
 
 function NewUser(props) {
   function handleSubmit(event) {
@@ -11,6 +12,7 @@ function NewUser(props) {
     const password = event.target.children.password.value
 
     props.createUser(username, password)
+    browserHistory.push('/')
   }
 
   return (

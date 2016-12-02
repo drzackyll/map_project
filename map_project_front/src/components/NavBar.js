@@ -4,11 +4,13 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { logout } from '../actions/actions'
 import { loggedIn } from '../utilities/utilities'
+import { browserHistory } from 'react-router'
 
 function NavBar(props) {
   function handleClick(event) {
     event.preventDefault()
     props.logout()
+    browserHistory.push('/')
   }
 
   const navBarItems = () => {

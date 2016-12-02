@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 import { login } from '../actions/actions'
+import { browserHistory } from 'react-router'
 
 function UserLogin(props) {
   function handleSubmit(event) {
@@ -11,6 +12,7 @@ function UserLogin(props) {
     const password = event.target.children.password.value
 
     props.login(username, password)
+    browserHistory.push('/')
   }
 
   return (
