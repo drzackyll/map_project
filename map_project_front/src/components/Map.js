@@ -34,10 +34,6 @@ class Map extends Component {
 
   handleMapLoad(map) {
     this._mapComponent = map
-    this.props.getUser()
-    navigator.geolocation.getCurrentPosition(position => {
-      this.props.findLocation(position.coords)
-    })
   }
 
   handleMapClick(event) {
@@ -47,27 +43,42 @@ class Map extends Component {
     this.props.setMarker(markerLat, markerLng)
   }
 
+  componentWillMount() {
+    this.props.getUser()
+    navigator.geolocation.getCurrentPosition(position => {
+      this.props.findLocation(position.coords)
+    })
+  }
+
+  loaded() {
+    return !!this.props.user.lat
+  }
+
   render() {
     return (
       <div style={{height: `600px`}}>
-        <MapWrapper
-          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvYpyQDXZ3DL9e-zmyc4Fs0JViGlgFj58"
-          loadingElement={
-            <div style={{ height: `100%` }}>
-              Loading...
-            </div>
-          }
-          containerElement={
-            <div style={{ height: `100%` }} />
-          }
-          mapElement={
-            <div style={{ height: `100%` }} />
-          }
-          onMapLoad={this.handleMapLoad}
-          onMapClick={this.handleMapClick}
-          center={{lat: this.props.user.lat, lng: this.props.user.lng}}
-          marker={this.props.marker}
-        />
+        { this.loaded() ? (
+          <MapWrapper
+            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvYpyQDXZ3DL9e-zmyc4Fs0JViGlgFj58"
+            loadingElement={
+              <div style={{ height: `100%` }}>
+                <h1>Loading...</h1>
+              </div>
+            }
+            containerElement={
+              <div style={{ height: `100%` }} />
+            }
+            mapElement={
+              <div style={{ height: `100%` }} />
+            }
+            onMapLoad={this.handleMapLoad}
+            onMapClick={this.handleMapClick}
+            center={{lat: this.props.user.lat, lng: this.props.user.lng}}
+            marker={this.props.marker}
+          />
+        ) : (
+          <h1>Loading...</h1>
+        )}
       </div>
     )
   }
