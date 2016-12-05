@@ -1,6 +1,7 @@
 class MarkersController < ApplicationController
 
   def create
+    byebug
     marker = Marker.new(marker_params)
     if marker.save
       render json: {

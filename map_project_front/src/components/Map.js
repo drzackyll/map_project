@@ -3,7 +3,7 @@ import { withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import withScriptjs from "react-google-maps/lib/async/withScriptjs"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { findLocation, setMarker } from '../actions/actions'
+import { findLocation, setMarker, submitMarker } from '../actions/actions'
 
 const MapWrapper = withScriptjs(
   withGoogleMap(props => (
@@ -43,6 +43,12 @@ class Map extends Component {
     this.props.setMarker(markerLat, markerLng)
   }
 
+  handleButtonClick(event) {
+    const markerLat = this.props.marker.position.lat
+    const markerLng = this.props.marker.position.lng
+    this.props.submitMarker(markerLat, markerLng)
+  }
+
   loaded() {
     return !!this.props.user.lat
   }
@@ -55,8 +61,8 @@ class Map extends Component {
 
   render() {
     return (
-      <div style={{height: `600px`}}>
-        { this.loaded() ? (
+       this.loaded() ? (
+        <div style={{height: `600px`}}>
           <MapWrapper
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvYpyQDXZ3DL9e-zmyc4Fs0JViGlgFj58"
             loadingElement={
@@ -75,10 +81,11 @@ class Map extends Component {
             center={{lat: this.props.user.lat, lng: this.props.user.lng}}
             marker={this.props.marker}
           />
-        ) : (
-          <h1>Loading...</h1>
-        )}
-      </div>
+          <button onClick={this.handleButtonClick.bind(this)}>Set Location</button>
+        </div>
+      ) : (
+        <h1>Loading...</h1>
+      )
     )
   }
 }
@@ -90,7 +97,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     findLocation,
-    setMarker
+    setMarker,
+    submitMarker
   }, dispatch)
 }
 
