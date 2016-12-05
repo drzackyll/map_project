@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
-import { createUser } from '../actions/actions'
+import { createUser } from '../actions/user'
 import { browserHistory } from 'react-router'
 
 function NewUser(props) {
