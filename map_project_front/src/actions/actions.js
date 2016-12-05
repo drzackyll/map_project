@@ -34,23 +34,6 @@ export function getUser() {
 }
 
 
-export function setLocation(lat, lng) {
-  const promise = $.ajax({
-    url: "http://localhost:3000/users",
-    type: "PATCH",
-    data: JSON.stringify({location: {lat: lat, lng: lng}}),
-    headers: {AUTHORIZATION: localStorage.token},
-    contentType: "application/json; charset=utf-8",
-    dataType: "json"
-  })
-
-  return {
-    type: "GET_USER",
-    payload: promise
-  }
-}
-
-
 // Session Actions
 
 export function login(username, password) {
@@ -77,17 +60,10 @@ export function logout() {
 
 // Map Actions
 
-export function findLocation() {
-  const promise = $.ajax({
-    url: "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyB38n1tEE0hrbD7we_ePY5YXzM9bLDNz9k",
-    type: "POST",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json"
-  })
-
+export function findLocation(coords) {
   return {
     type: "FIND_LOCATION",
-    payload: promise
+    payload: coords
   }
 }
 

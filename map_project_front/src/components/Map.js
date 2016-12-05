@@ -35,8 +35,9 @@ class Map extends Component {
   handleMapLoad(map) {
     this._mapComponent = map
     this.props.getUser()
-    this.props.findLocation()
-    this.props.setLocation(this.props.user.lat, this.props.user.lng)
+    navigator.geolocation.getCurrentPosition(position => {
+      this.props.findLocation(position.coords)
+    })
   }
 
   handleMapClick(event) {

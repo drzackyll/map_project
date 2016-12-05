@@ -16,7 +16,7 @@ function user(state = {}, action){
       localStorage.removeItem('token')
       return {}
     case "FIND_LOCATION":
-      const location = {lat: action.payload.location.lat, lng: action.payload.location.lng}
+      const location = {lat: action.payload.latitude, lng: action.payload.longitude}
       return Object.assign({}, state, location)
     default:
       return state
