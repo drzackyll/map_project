@@ -1,5 +1,8 @@
 import $ from 'jquery'
 
+
+// User Actions
+
 export function createUser(username, password) {
   const promise = $.ajax({
     url: "http://localhost:3000/users",
@@ -30,19 +33,6 @@ export function getUser() {
   }
 }
 
-export function findLocation() {
-  const promise = $.ajax({
-    url: "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDtgntWyuOLb7zOOlFbZUlQjYnMYe4vcuc",
-    type: "POST",
-    contentType: "application/json; charset=utf-8",
-    dataType: "json"
-  })
-
-  return {
-    type: "FIND_LOCATION",
-    payload: promise
-  }
-}
 
 export function setLocation(lat, lng) {
   const promise = $.ajax({
@@ -59,6 +49,9 @@ export function setLocation(lat, lng) {
     payload: promise
   }
 }
+
+
+// Session Actions
 
 export function login(username, password) {
   const promise = $.ajax({
@@ -78,5 +71,22 @@ export function login(username, password) {
 export function logout() {
   return {
     type: "LOGOUT"
+  }
+}
+
+
+// Map Actions
+
+export function findLocation() {
+  const promise = $.ajax({
+    url: "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDtgntWyuOLb7zOOlFbZUlQjYnMYe4vcuc",
+    type: "POST",
+    contentType: "application/json; charset=utf-8",
+    dataType: "json"
+  })
+
+  return {
+    type: "FIND_LOCATION",
+    payload: promise
   }
 }

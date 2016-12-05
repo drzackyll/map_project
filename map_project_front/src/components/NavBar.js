@@ -18,13 +18,15 @@ function NavBar(props) {
       return (
         <ul>
           <li><a href='#' onClick={handleClick.bind(this)}>Log Out</a></li>
+          <li><Link to='/'>Home</Link></li>
         </ul>
       )
     } else {
       return (
         <ul>
-          <li><Link to='/login'>Login</Link></li>
           <li><Link to='/signup'>Sign Up</Link></li>
+          <li><Link to='/login'>Login</Link></li>
+          <li><Link to='/'>Home</Link></li>
         </ul>
       )
     }
