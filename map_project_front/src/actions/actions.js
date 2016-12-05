@@ -79,7 +79,7 @@ export function logout() {
 
 export function findLocation() {
   const promise = $.ajax({
-    url: "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyDtgntWyuOLb7zOOlFbZUlQjYnMYe4vcuc",
+    url: "https://www.googleapis.com/geolocation/v1/geolocate?key=AIzaSyB38n1tEE0hrbD7we_ePY5YXzM9bLDNz9k",
     type: "POST",
     contentType: "application/json; charset=utf-8",
     dataType: "json"
