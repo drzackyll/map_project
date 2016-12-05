@@ -1,28 +1,32 @@
 import React, { Component } from "react"
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps"
+import withScriptjs from "react-google-maps/lib/async/withScriptjs"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { getUser, findLocation, setLocation, setMarker } from '../actions/actions'
 
-const MapWrapper = withGoogleMap(props => (
-  <GoogleMap
-    ref={props.onMapLoad}
-    zoom={16}
-    center={props.center}
-    options={{
-      disableDefaultUI: true,
-      draggable: false,
-      zoomControl: false,
-      scrollwheel: false,
-      disableDoubleClickZoom: true
-    }}
-    onClick={props.onMapClick}
-  >
-    <Marker
-      {...props.marker}
-    />
-  </GoogleMap>
-))
+const MapWrapper = withScriptjs(
+  withGoogleMap(props => (
+    <GoogleMap
+      ref={props.onMapLoad}
+      zoom={16}
+      center={props.center}
+      options={{
+        disableDefaultUI: true,
+        draggable: false,
+        zoomControl: false,
+        scrollwheel: false,
+        disableDoubleClickZoom: true
+      }}
+      onClick={props.onMapClick}
+    >
+      <Marker
+        {...props.marker}
+      />
+    </GoogleMap>
+  ))
+)
+
 
 class Map extends Component {
   handleMapLoad = this.handleMapLoad.bind(this)
@@ -46,6 +50,12 @@ class Map extends Component {
     return (
       <div style={{height: `600px`}}>
         <MapWrapper
+          googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvYpyQDXZ3DL9e-zmyc4Fs0JViGlgFj58"
+          loadingElement={
+            <div style={{ height: `100%` }}>
+              Loading...
+            </div>
+          }
           containerElement={
             <div style={{ height: `100%` }} />
           }
