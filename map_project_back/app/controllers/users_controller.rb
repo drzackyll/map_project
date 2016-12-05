@@ -7,9 +7,7 @@ class UsersController < ApplicationController
       render json: {
         jwt: jwt,
         user: {
-          username: user.username,
-          lat: user.lat,
-          lng: user.lng
+          username: user.username
         }
       }
     else
@@ -27,9 +25,7 @@ class UsersController < ApplicationController
       render json: {
         jwt: jwt,
         user: {
-          username: user.username,
-          lat: user.lat,
-          lng: user.lng
+          username: user.username
         }
       }
     else
