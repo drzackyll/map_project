@@ -3,8 +3,8 @@ class User < ApplicationRecord
   validates :username, presence: true
   validates :username, uniqueness: true
 
-  def set_location(latitude, longitude)
-    this.latitude = latitude
-    this.longitude = longitude
+  def set_location(lat, lng)
+    this.lat = lat
+    this.lng = lng
   end
 end
