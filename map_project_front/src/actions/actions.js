@@ -1,6 +1,5 @@
 import $ from 'jquery'
 
-
 // User Actions
 
 export function createUser(username, password) {

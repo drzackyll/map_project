@@ -5,10 +5,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:auth][:password])
       jwt = Auth.issue({user_id: user.id})
       render json: {
-        jwt: jwt,
-        user: {
-          username: user.username
-        }
+        jwt: jwt
       }
     else
       render json: {

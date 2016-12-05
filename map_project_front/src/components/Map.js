@@ -44,7 +44,7 @@ class Map extends Component {
   }
 
   loaded() {
-    return !!this.props.user.lat
+    return !!this.props.location.lat
   }
 
   componentWillMount() {
@@ -72,7 +72,7 @@ class Map extends Component {
             }
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}
-            center={{lat: this.props.user.lat, lng: this.props.user.lng}}
+            center={{lat: this.props.location.lat, lng: this.props.location.lng}}
             marker={this.props.marker}
           />
         ) : (
