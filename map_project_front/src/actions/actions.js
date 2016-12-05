@@ -90,3 +90,10 @@ export function findLocation() {
     payload: promise
   }
 }
+
+export function setMarker(lat, lng) {
+  return {
+    type: "SET_MARKER",
+    payload: { position: { lat, lng } }
+  }
+}

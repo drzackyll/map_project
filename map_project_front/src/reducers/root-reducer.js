@@ -23,6 +23,15 @@ function user(state = {}, action){
   }
 }
 
-const rootReducer = combineReducers({ user })
+function marker(state = {position: {lat: 0, lng: 0}}, action){
+  switch (action.type) {
+    case "SET_MARKER":
+      return action.payload
+    default:
+      return state
+  }
+}
+
+const rootReducer = combineReducers({ user, marker })
 
 export default rootReducer

@@ -2,13 +2,13 @@ import React, { Component } from "react"
 import { withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getUser, findLocation, setLocation } from '../actions/actions'
+import { getUser, findLocation, setLocation, setMarker } from '../actions/actions'
 
 const MapWrapper = withGoogleMap(props => (
   <GoogleMap
     ref={props.onMapLoad}
     zoom={16}
-    center={{ lat: 40.7052839, lng: -74.0162136 }}
+    center={props.center}
     options={{
       disableDefaultUI: true,
       draggable: false,
@@ -18,24 +18,13 @@ const MapWrapper = withGoogleMap(props => (
     }}
     onClick={props.onMapClick}
   >
-    {props.markers.map(marker => (
-      <Marker {...marker} />
-    ))}
+    <Marker
+      {...props.marker}
+    />
   </GoogleMap>
 ))
 
 class Map extends Component {
-  state = {
-    markers: [{
-      position: {
-        lat: 40.705329,
-        lng: -74.014047
-      },
-      key: `Flatiron School`,
-      defaultAnimation: 2,
-    }],
-  }
-
   handleMapLoad = this.handleMapLoad.bind(this)
   handleMapClick = this.handleMapClick.bind(this)
 
@@ -47,7 +36,10 @@ class Map extends Component {
   }
 
   handleMapClick(event) {
+    const markerLat = event.latLng.lat()
+    const markerLng = event.latLng.lng()
 
+    this.props.setMarker(markerLat, markerLng)
   }
 
   render() {
@@ -62,7 +54,8 @@ class Map extends Component {
           }
           onMapLoad={this.handleMapLoad}
           onMapClick={this.handleMapClick}
-          markers={this.state.markers}
+          center={{lat: this.props.user.lat, lng: this.props.user.lng}}
+          marker={this.props.marker}
         />
       </div>
     )
@@ -77,7 +70,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     getUser,
     findLocation,
-    setLocation
+    setLocation,
+    setMarker
   }, dispatch)
 }
 
