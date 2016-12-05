@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { logout } from '../actions/actions'
+import { logout } from '../actions/session'
 import { loggedIn } from '../utilities/utilities'
 import { browserHistory } from 'react-router'
 

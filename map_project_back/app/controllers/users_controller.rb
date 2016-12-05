@@ -5,10 +5,7 @@ class UsersController < ApplicationController
     if user.save
       jwt = Auth.issue({user_id: user.id})
       render json: {
-        jwt: jwt,
-        user: {
-          username: user.username
-        }
+        jwt: jwt
       }
     else
       render json: {
