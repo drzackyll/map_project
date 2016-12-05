@@ -58,6 +58,7 @@ class Map extends Component {
     navigator.geolocation.getCurrentPosition(position => {
       this.props.findLocation(position.coords)
     })
+    // this.props.getStatus - WE NEED TO CODE THIS GET STATUS FUNCTION
   }
 
   render() {

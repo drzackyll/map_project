@@ -1,9 +1,9 @@
 class MarkersController < ApplicationController
 
   def create
-    byebug
-    marker = Marker.new(marker_params)
-    if marker.save
+    user_id = Auth.decode(params["jwt"])["user_id"]
+    if user_id
+      marker = Marker.create(user_id: user_id, lat: params["data"]["lat"], lng: params["data"]["lng"])
       render json: {
         marker: {
           user_id: marker.user_id,
@@ -18,8 +18,4 @@ class MarkersController < ApplicationController
     end
   end
 
-  private
-  def marker_params
-    params.require(:data).permit(:user_id, :lat, :lng)
-  end
 end

@@ -1,3 +1,5 @@
+import $ from 'jquery'
+
 export function findLocation(coords) {
   return {
     type: "FIND_LOCATION",
@@ -16,8 +18,7 @@ export function submitMarker(lat, lng) {
   const promise = $.ajax({
     url: "http://localhost:3000/markers",
     type: "POST",
-    data: JSON.stringify({data: {lat, lng}}),
-    jwt: localStorage.token,
+    data: JSON.stringify({data: {lat, lng}, jwt: localStorage.token}),
     contentType: "application/json; charset=utf-8",
     dataType: "json"
   })
