@@ -3,7 +3,7 @@ import { withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import withScriptjs from "react-google-maps/lib/async/withScriptjs"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getUser, findLocation, setLocation, setMarker } from '../actions/actions'
+import { findLocation, setMarker } from '../actions/actions'
 
 const MapWrapper = withScriptjs(
   withGoogleMap(props => (
@@ -27,10 +27,10 @@ const MapWrapper = withScriptjs(
   ))
 )
 
-
 class Map extends Component {
   handleMapLoad = this.handleMapLoad.bind(this)
   handleMapClick = this.handleMapClick.bind(this)
+  loaded = this.loaded.bind(this)
 
   handleMapLoad(map) {
     this._mapComponent = map
@@ -43,15 +43,14 @@ class Map extends Component {
     this.props.setMarker(markerLat, markerLng)
   }
 
+  loaded() {
+    return !!this.props.user.lat
+  }
+
   componentWillMount() {
-    this.props.getUser()
     navigator.geolocation.getCurrentPosition(position => {
       this.props.findLocation(position.coords)
     })
-  }
-
-  loaded() {
-    return !!this.props.user.lat
   }
 
   render() {
@@ -90,9 +89,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-    getUser,
     findLocation,
-    setLocation,
     setMarker
   }, dispatch)
 }

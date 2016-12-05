@@ -18,21 +18,6 @@ export function createUser(username, password) {
   }
 }
 
-export function getUser() {
-  const promise = $.ajax({
-    url: "http://localhost:3000/users",
-    type: "GET",
-    headers: {AUTHORIZATION: localStorage.token},
-    contentType: "application/json; charset=utf-8",
-    dataType: "json"
-  })
-
-  return {
-    type: "GET_USER",
-    payload: promise
-  }
-}
-
 
 // Session Actions
 

@@ -17,24 +17,6 @@ class UsersController < ApplicationController
     end
   end
 
-  def index
-    jwt = request.env["HTTP_AUTHORIZATION"]
-    auth_hash = Auth.decode(jwt)
-    if auth_hash
-      user = User.find(auth_hash["user_id"])
-      render json: {
-        jwt: jwt,
-        user: {
-          username: user.username
-        }
-      }
-    else
-      render json: {
-        error: "wrong jwt sucka"
-      }
-    end
-  end
-
   private
   def user_params
     params.require(:auth).permit(:username, :password)
