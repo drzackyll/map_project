@@ -7,10 +7,10 @@ export default function user(state = {}, action){
       } else {
         localStorage.setItem("token", action.payload.jwt)
       }
-      return state
+      return {}
     case "LOGOUT":
       localStorage.removeItem('token')
-      return state
+      return {}
     default:
       return state
   }
