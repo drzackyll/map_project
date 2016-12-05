@@ -9,7 +9,7 @@ const MapWrapper = withScriptjs(
   withGoogleMap(props => (
     <GoogleMap
       ref={props.onMapLoad}
-      zoom={16}
+      zoom={17}
       center={props.center}
       options={{
         disableDefaultUI: true,
