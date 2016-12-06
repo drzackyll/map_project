@@ -1,32 +1,24 @@
-#root {
-  margin-top: 0;
-}
-
 .NavBar {
   background-color: #eee;
-  position: fixed;
-  top: 0;
-  left: 0;
+  display: table;
   width: 100%;
-  height: 5.5rem;
+  margin-bottom: 1rem;
 }
 
 .NavBar h2 {
   float: left;
-  margin: auto 1.5rem;
+  margin-top: 1rem;
+  margin-left: 2.5rem;
 }
 
 .NavBar ul {
-  vertical-align: middle;
-}
+  margin-top: 1.5rem;
+  margin-right: 1.5rem;
+  }
 
 .NavBar li {
   float: right;
-  margin: 1.5rem;
+  display: table-cell;
+  margin: 1rem;
   list-style: none;
-}
-
-
-body {
-  padding-top: 7rem;
 }

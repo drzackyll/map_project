@@ -2,6 +2,13 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
+
+    if rand(1..6) == 6
+      user.zombie = true
+    else
+      user.zombie = false
+    end
+
     if user.save
       jwt = Auth.issue({user_id: user.id})
       render json: {

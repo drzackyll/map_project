@@ -16,7 +16,17 @@ names = [
   'Nancy',
   'Joseph',
   'Bill',
-  'Boomhauer'
+  'Boomhauer',
+  'Bart',
+  'Lisa',
+  'Homer',
+  'Marge',
+  'Maggie',
+  'Moe',
+  'Barney',
+  'Sideshow Bob',
+  'Krusty',
+  'Chief Wiggum'
 ]
 
 n_lat = 40.707
@@ -25,10 +35,19 @@ e_lng = -74.011
 w_lng = -74.017
 
 names.each { |name|
-  user = User.create(username: name, password: name)
+  user = User.new(username: name, password: name)
+  if rand(1..6) == 6
+    user.zombie = true
+  else
+    user.zombie = false
+  end
+  user.save
+
   lat = rand(s_lat..n_lat)
   lng = rand(w_lng..e_lng)
-  marker = Marker.create(user_id: user.id, lat: lat, lng: lng)
+
+  marker = Marker.new(user_id: user.id, lat: lat, lng: lng)
+  marker.zombie = marker.user.zombie
   marker.created_at = 1.days.ago
   marker.save
 }

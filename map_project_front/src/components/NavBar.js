@@ -18,7 +18,8 @@ function NavBar(props) {
       return (
         <ul>
           <li><a href='#' onClick={handleClick.bind(this)}>Log Out</a></li>
-          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/newmove'>New Move</Link></li>
+          <li><Link to='/'>About</Link></li>
         </ul>
       )
     } else {
@@ -26,7 +27,7 @@ function NavBar(props) {
         <ul>
           <li><Link to='/signup'>Sign Up</Link></li>
           <li><Link to='/login'>Login</Link></li>
-          <li><Link to='/'>Home</Link></li>
+          <li><Link to='/'>About</Link></li>
         </ul>
       )
     }
@@ -34,7 +35,7 @@ function NavBar(props) {
 
   return (
     <div className="NavBar row">
-      <h2>MAPP</h2>
+      <h2>Z-Tag</h2>
       {navBarItems()}
     </div>
   )

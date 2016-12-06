@@ -19,12 +19,16 @@ class MarkersController < ApplicationController
   private
 
   def create_marker(user_id, params)
-    marker = Marker.create(user_id: user_id, lat: params["data"]["lat"], lng: params["data"]["lng"])
+    marker = Marker.new(user_id: user_id, lat: params["data"]["lat"], lng: params["data"]["lng"])
+    marker.zombie = marker.user.zombie
+    marker.save
+
     render json: {
       marker: {
         user_id: marker.user_id,
         lat: marker.lat,
         lng: marker.lng,
+        zombie: marker.zombie
       }
     }
   end
@@ -36,6 +40,7 @@ class MarkersController < ApplicationController
         user_id: marker.user_id,
         lat: marker.lat,
         lng: marker.lng,
+        zombie: marker.zombie
       }
     }
   end

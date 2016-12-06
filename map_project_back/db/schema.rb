@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20161205221936) do
     t.integer  "user_id"
     t.decimal  "lat"
     t.decimal  "lng"
+    t.boolean  "zombie"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -26,6 +27,8 @@ ActiveRecord::Schema.define(version: 20161205221936) do
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "password_digest"
+    t.boolean  "zombie"
+    t.integer  "score"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
