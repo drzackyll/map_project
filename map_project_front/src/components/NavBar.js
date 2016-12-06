@@ -35,7 +35,7 @@ function NavBar(props) {
 
   return (
     <div className="NavBar row">
-      <h2>MAPP</h2>
+      <h2>Z-Tag</h2>
       {navBarItems()}
     </div>
   )

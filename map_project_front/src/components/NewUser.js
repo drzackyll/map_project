@@ -12,7 +12,7 @@ function NewUser(props) {
     const password = event.target.children.password.value
 
     props.createUser(username, password)
-    browserHistory.push('/')
+    browserHistory.push('/newmove')
   }
 
   return (
