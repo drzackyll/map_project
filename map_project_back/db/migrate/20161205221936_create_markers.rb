@@ -4,6 +4,7 @@ class CreateMarkers < ActiveRecord::Migration[5.0]
       t.integer :user_id
       t.decimal :lat
       t.decimal :lng
+      t.boolean :zombie
 
       t.timestamps
     end
