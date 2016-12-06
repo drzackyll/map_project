@@ -2,6 +2,7 @@ import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { findLocation, setMarker, submitMarker } from '../actions/map'
+import { getStatus } from '../actions/user'
 import MapWrapper from './MapWrapper'
 
 class NewMoveMap extends Component {
@@ -32,7 +33,9 @@ class NewMoveMap extends Component {
 
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(position => {
-      this.props.findLocation(position.coords)
+      this.props.getStatus().then(
+        this.props.findLocation(position.coords)
+      )
     })
     // this.props.getStatus - WE NEED TO CODE THIS GET STATUS FUNCTION
   }
@@ -68,7 +71,8 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     findLocation,
     setMarker,
-    submitMarker
+    submitMarker,
+    getStatus
   }, dispatch)
 }
 

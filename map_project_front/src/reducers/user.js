@@ -11,6 +11,8 @@ export default function user(state = {}, action){
     case "LOGOUT":
       localStorage.removeItem('token')
       return {}
+    case "GET_STATUS":
+      return action.payload.user
     default:
       return state
   }

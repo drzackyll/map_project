@@ -21,6 +21,37 @@ class UsersController < ApplicationController
     end
   end
 
+  def index
+    user_id = Auth.decode(params["jwt"])["user_id"]
+    if user_id
+      marker = Marker.find_by("user_id = ? AND created_at >= ?", user_id, Time.zone.now.beginning_of_day)
+      user = User.find(user_id)
+      if marker
+        render json: {
+          user: {
+            zombie: user.zombie
+          },
+          marker: {
+            position: {lat: marker.lat, lng: marker.lng}
+          }
+        }
+      else
+        render json: {
+          user: {
+            zombie: user.zombie
+          },
+          marker: {
+            position: {lat: nil, lng: nil}
+          }
+        }
+      end
+    else
+      render json: {
+        error: "some sort of jwt error"
+      }
+    end
+  end
+
   private
   def user_params
     params.require(:auth).permit(:username, :password)
