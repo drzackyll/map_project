@@ -1,34 +1,10 @@
 import React, { Component } from "react"
-import { withGoogleMap, GoogleMap, Marker } from "react-google-maps"
-import withScriptjs from "react-google-maps/lib/async/withScriptjs"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { findLocation, setMarker, submitMarker } from '../actions/map'
+import MapWrapper from './MapWrapper'
 
-
-const MapWrapper = withScriptjs(
-  withGoogleMap(props => (
-    <GoogleMap
-      ref={props.onMapLoad}
-      zoom={17}
-      center={props.center}
-      options={{
-        disableDefaultUI: true,
-        draggable: false,
-        zoomControl: false,
-        scrollwheel: false,
-        disableDoubleClickZoom: true
-      }}
-      onClick={props.onMapClick}
-    >
-      <Marker
-        {...props.marker}
-      />
-    </GoogleMap>
-  ))
-)
-
-class Map extends Component {
+class NewMoveMap extends Component {
   handleMapLoad = this.handleMapLoad.bind(this)
   handleMapClick = this.handleMapClick.bind(this)
   loaded = this.loaded.bind(this)
@@ -67,17 +43,9 @@ class Map extends Component {
         <div style={{height: `600px`}}>
           <MapWrapper
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvYpyQDXZ3DL9e-zmyc4Fs0JViGlgFj58"
-            loadingElement={
-              <div style={{ height: `100%` }}>
-                <h1>Loading...</h1>
-              </div>
-            }
-            containerElement={
-              <div style={{ height: `100%` }} />
-            }
-            mapElement={
-              <div style={{ height: `100%` }} />
-            }
+            loadingElement={ <div style={{ height: `100%` }}><h1>Loading...</h1></div> }
+            containerElement={ <div style={{ height: `100%` }} /> }
+            mapElement={ <div style={{ height: `100%` }} /> }
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}
             center={{lat: this.props.location.lat, lng: this.props.location.lng}}
@@ -104,4 +72,4 @@ function mapDispatchToProps(dispatch) {
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Map)
+export default connect(mapStateToProps, mapDispatchToProps)(NewMoveMap)
