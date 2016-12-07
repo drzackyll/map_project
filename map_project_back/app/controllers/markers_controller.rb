@@ -3,11 +3,11 @@ class MarkersController < ApplicationController
   def index
     user_id = Auth.decode(params["jwt"])["user_id"]
     if user_id
-      user_marker = Marker.where("user_id = ?", user_id).last
-      lat_min = user_marker.lat - 0.003
-      lat_max = user_marker.lat + 0.003
-      lng_min = user_marker.lng - 0.003
-      lng_max = user_marker.lng + 0.003
+      user_marker = Marker.where("user_id = ? AND created_at < ?", user_id, Time.zone.now.beginning_of_day).order("created_at ASC").last
+      lat_min = user_marker.lat - 0.004
+      lat_max = user_marker.lat + 0.004
+      lng_min = user_marker.lng - 0.004
+      lng_max = user_marker.lng + 0.004
       markers = Marker.where("created_at >= ? AND created_at <= ? AND (lat BETWEEN ? AND ?) AND (lng BETWEEN ? AND ?) AND user_id != ?",
        user_marker.created_at.beginning_of_day, user_marker.created_at.end_of_day, lat_min, lat_max, lng_min, lng_max, user_id)
       if markers

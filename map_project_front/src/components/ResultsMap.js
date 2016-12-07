@@ -41,7 +41,7 @@ class ResultsMap extends Component {
             mapElement={ <div style={{ height: `100%` }} /> }
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}
-            center={{lat: this.props.location.lat, lng: this.props.location.lng}}
+            center={this.props.markers.user.position}
             markers={this.props.markers}
           />
         </div>
