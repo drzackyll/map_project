@@ -29,10 +29,10 @@ names = [
   'Chief Wiggum'
 ]
 
-n_lat = 40.707
-s_lat = 40.703
-e_lng = -74.011
-w_lng = -74.017
+n_lat = 40.708
+s_lat = 40.702
+e_lng = -74.010
+w_lng = -74.018
 
 names.each { |name|
   user = User.new(username: name, password: name)
