@@ -29,7 +29,8 @@ class MarkersController < ApplicationController
               },
               zombie: user_marker.zombie
             },
-            nearby: results
+            nearby: results,
+            date: user_marker.created_at.strftime("%B%e, %Y - %A")
           }
         }
       else

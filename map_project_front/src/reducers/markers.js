@@ -85,7 +85,8 @@ export default function markers(state = defaultState, action){
               anchor: {x: 20, y: 20}
             }
           }
-        })
+        }),
+        date: action.payload.markers.date
       }
     case "LOGOUT":
       return defaultState

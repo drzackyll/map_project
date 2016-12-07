@@ -44,6 +44,7 @@ class ResultsMap extends Component {
             center={this.props.markers.user.position}
             markers={this.props.markers}
           />
+          <p>Results for {this.props.markers.date}</p>
         </div>
       ) : (
         <h1>Loading...</h1>
