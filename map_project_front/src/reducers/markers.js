@@ -58,7 +58,7 @@ export default function markers(state = defaultState, action){
             lng: parseFloat(action.payload.markers.user.position.lng)
           },
           icon: {
-            url: `/images/user-${iconSelector(action.payload.zombie)}.png`,
+            url: `/images/user-${iconSelector(action.payload.markers.user.zombie)}.png`,
             scaledSize: {
               height: 40,
               width: 40
