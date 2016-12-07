@@ -18,7 +18,9 @@ class ResultsMap extends Component {
   }
 
   loaded() {
-    return !!this.props.location.lat
+    const nearbyMarkersEmpty = this.props.markers.nearby.length === 0
+
+    return !nearbyMarkersEmpty
   }
 
   componentWillMount() {
