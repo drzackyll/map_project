@@ -3,13 +3,12 @@ class MarkersController < ApplicationController
   def index
     user_id = Auth.decode(params["jwt"])["user_id"]
     if user_id
-      user_marker = Marker.where("user_id = ? AND created_at < ?", user_id, Time.zone.now.beginning_of_day).order("created_at ASC").last
-      lat_min = user_marker.lat - 0.004
-      lat_max = user_marker.lat + 0.004
-      lng_min = user_marker.lng - 0.004
-      lng_max = user_marker.lng + 0.004
-      markers = Marker.where("created_at >= ? AND created_at <= ? AND (lat BETWEEN ? AND ?) AND (lng BETWEEN ? AND ?) AND user_id != ?",
-       user_marker.created_at.beginning_of_day, user_marker.created_at.end_of_day, lat_min, lat_max, lng_min, lng_max, user_id)
+      user_marker = last_user_marker(user_id)
+      markers = nearby_markers(user_marker, user_id)
+
+      # here is where we call a function that finds the nearest nearby marker and sets
+        # user.zombie accordingly
+
       if markers
         results = markers.each_with_object([]) do |marker, array|
           array << {
@@ -74,6 +73,20 @@ class MarkersController < ApplicationController
   def update_marker(marker, params)
     marker.update(lat: params["data"]["lat"], lng: params["data"]["lng"])
     render json: {}
+  end
+
+  def last_user_marker(user_id)
+    Marker.where("user_id = ? AND created_at < ?", user_id, Time.zone.now.beginning_of_day).order("created_at ASC").last
+  end
+
+  def nearby_markers(user_marker, user_id)
+    lat_min = user_marker.lat - 0.004
+    lat_max = user_marker.lat + 0.004
+    lng_min = user_marker.lng - 0.004
+    lng_max = user_marker.lng + 0.004
+
+    Marker.where("created_at >= ? AND created_at <= ? AND (lat BETWEEN ? AND ?) AND (lng BETWEEN ? AND ?) AND user_id != ?",
+     user_marker.created_at.beginning_of_day, user_marker.created_at.end_of_day, lat_min, lat_max, lng_min, lng_max, user_id)
   end
 
 end
