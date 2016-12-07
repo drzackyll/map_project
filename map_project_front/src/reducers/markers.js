@@ -52,6 +52,8 @@ export default function markers(state = defaultState, action){
           }
         }
       }
+    case "GET_RESULTS":
+      return action.payload
     case "LOGOUT":
       return {position: {lat: 0, lng: 0}}
     default:

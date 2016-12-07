@@ -28,3 +28,18 @@ export function submitMarker(lat, lng) {
     payload: promise
   }
 }
+
+export function getResults(){
+  const promise = $.ajax({
+    url: "http://localhost:3000/markers",
+    type: "GET",
+    data: {jwt: localStorage.token},
+    contentType: "application/json; charset=utf-8",
+    dataType: "json"
+  })
+
+  return {
+    type: "GET_RESULTS",
+    payload: promise
+  }
+}
