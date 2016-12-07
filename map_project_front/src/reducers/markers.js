@@ -65,7 +65,7 @@ export default function markers(state = defaultState, action){
             },
             anchor: {x: 20, y: 20}
           },
-          zIndex: 99999
+          zIndex: 9999999999
         },
         nearby: action.payload.markers.nearby.map(marker => {
           return {
@@ -81,7 +81,7 @@ export default function markers(state = defaultState, action){
               },
               anchor: {x: 20, y: 20}
             },
-            username
+            title: marker.username
           }
         }),
         date: action.payload.markers.date,
