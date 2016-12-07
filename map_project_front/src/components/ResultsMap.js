@@ -1,8 +1,7 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { findLocation } from '../actions/map'
-import { getStatus } from '../actions/user'
+import { findLocation, getResults } from '../actions/map'
 import MapWrapper from './MapWrapper'
 
 class ResultsMap extends Component {
@@ -24,7 +23,7 @@ class ResultsMap extends Component {
 
   componentWillMount() {
     navigator.geolocation.getCurrentPosition(position => {
-      this.props.getStatus().then(
+      this.props.getResults().then(
         this.props.findLocation(position.coords)
       )
     })
@@ -42,9 +41,10 @@ class ResultsMap extends Component {
             mapElement={ <div style={{ height: `100%` }} /> }
             onMapLoad={this.handleMapLoad}
             onMapClick={this.handleMapClick}
-            center={{lat: this.props.location.lat, lng: this.props.location.lng}}
+            center={this.props.markers.user.position}
             markers={this.props.markers}
           />
+          <p>Results for {this.props.markers.date}</p>
         </div>
       ) : (
         <h1>Loading...</h1>
@@ -60,7 +60,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     findLocation,
-    getStatus
+    getResults
   }, dispatch)
 }
 

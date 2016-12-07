@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { bindActionCreators} from 'redux'
+import { bindActionCreators } from 'redux'
 import { login } from '../actions/session'
 import { browserHistory } from 'react-router'
 
