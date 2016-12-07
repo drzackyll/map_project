@@ -19,7 +19,6 @@ function iconSelector(zombie) { // finish this
 export default function markers(state = defaultState, action){
   switch (action.type) {
     case "SET_MARKER":
-    debugger
       return {
         user: {
           position: {
@@ -31,12 +30,12 @@ export default function markers(state = defaultState, action){
             scaledSize: {
               height: 40,
               width: 40
-            }
+            },
+            anchor: {x: 20, y: 20}
           }
         }
       }
     case "GET_STATUS":
-      debugger
       return {
         user: {
           position: {
@@ -48,7 +47,8 @@ export default function markers(state = defaultState, action){
             scaledSize: {
               height: 40,
               width: 40
-            }
+            },
+            anchor: {x: 20, y: 20}
           }
         }
       }
