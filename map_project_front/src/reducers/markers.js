@@ -81,7 +81,8 @@ export default function markers(state = defaultState, action){
               },
               anchor: {x: 20, y: 20}
             },
-            title: marker.username
+            title: marker.username,
+            key: marker.username
           }
         }),
         date: action.payload.markers.date,
