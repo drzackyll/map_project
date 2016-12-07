@@ -1,11 +1,11 @@
 import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { findLocation, setMarker, submitMarker } from '../actions/map'
+import { findLocation } from '../actions/map'
 import { getStatus } from '../actions/user'
 import MapWrapper from './MapWrapper'
 
-class NewMoveMap extends Component {
+class ResultsMap extends Component {
   handleMapLoad = this.handleMapLoad.bind(this)
   handleMapClick = this.handleMapClick.bind(this)
   loaded = this.loaded.bind(this)
@@ -15,16 +15,7 @@ class NewMoveMap extends Component {
   }
 
   handleMapClick(event) {
-    const markerLat = event.latLng.lat()
-    const markerLng = event.latLng.lng()
-
-    this.props.setMarker(markerLat, markerLng)
-  }
-
-  handleButtonClick(event) {
-    const markerLat = this.props.markers.user.position.lat
-    const markerLng = this.props.markers.user.position.lng
-    this.props.submitMarker(markerLat, markerLng)
+    console.log("dickbutt")
   }
 
   loaded() {
@@ -37,7 +28,7 @@ class NewMoveMap extends Component {
         this.props.findLocation(position.coords)
       )
     })
-    // this.props.getStatus - WE NEED TO CODE THIS GET STATUS FUNCTION
+    // this.props.getRESULTS
   }
 
   render() {
@@ -54,7 +45,6 @@ class NewMoveMap extends Component {
             center={{lat: this.props.location.lat, lng: this.props.location.lng}}
             markers={this.props.markers}
           />
-          <button onClick={this.handleButtonClick.bind(this)}>Set Location</button>
         </div>
       ) : (
         <h1>Loading...</h1>
@@ -70,10 +60,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     findLocation,
-    setMarker,
-    submitMarker,
     getStatus
   }, dispatch)
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewMoveMap)
+export default connect(mapStateToProps, mapDispatchToProps)(ResultsMap)

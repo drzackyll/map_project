@@ -41,7 +41,7 @@ class UsersController < ApplicationController
             zombie: user.zombie
           },
           marker: {
-            position: {lat: nil, lng: nil}
+            position: {lat: 0, lng: 0}
           }
         }
       end

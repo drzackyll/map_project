@@ -23,26 +23,12 @@ class MarkersController < ApplicationController
     marker.zombie = marker.user.zombie
     marker.save
 
-    render json: {
-      marker: {
-        user_id: marker.user_id,
-        lat: marker.lat,
-        lng: marker.lng,
-        zombie: marker.zombie
-      }
-    }
+    render json: {}
   end
 
   def update_marker(marker, params)
     marker.update(lat: params["data"]["lat"], lng: params["data"]["lng"])
-    render json: {
-      marker: {
-        user_id: marker.user_id,
-        lat: marker.lat,
-        lng: marker.lng,
-        zombie: marker.zombie
-      }
-    }
+    render json: {}
   end
 
 end

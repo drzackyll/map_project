@@ -10,7 +10,7 @@ export function findLocation(coords) {
 export function setMarker(lat, lng) {
   return {
     type: "SET_MARKER",
-    payload: { position: { lat, lng } }
+    payload: { lat, lng }
   }
 }
 

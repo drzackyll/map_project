@@ -6,6 +6,7 @@ import About from './components/About'
 import UserLogin from './components/UserLogin'
 import NewUser from './components/NewUser'
 import NewMoveMap from './components/NewMoveMap'
+import ResultsMap from './components/ResultsMap'
 
 const Routes = (
   <Route path="/" component={App}>
@@ -14,6 +15,7 @@ const Routes = (
     <Route path="/signup" component={NewUser} />
     <Route path="/logout" component={NewUser} />
     <Route path="/newmove" component={NewMoveMap} />
+    <Route path="/results" component={ResultsMap} />
   </Route>
 )
 

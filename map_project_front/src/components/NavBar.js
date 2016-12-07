@@ -19,6 +19,7 @@ function NavBar(props) {
         <ul>
           <li><a href='#' onClick={handleClick.bind(this)}>Log Out</a></li>
           <li><Link to='/newmove'>New Move</Link></li>
+          <li><Link to='/results'>Results</Link></li>
           <li><Link to='/'>About</Link></li>
         </ul>
       )
