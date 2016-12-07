@@ -3,11 +3,11 @@ class MarkersController < ApplicationController
   def index
     user_id = Auth.decode(params["jwt"])["user_id"]
     if user_id
+      user = User.find(user_id)
       user_marker = last_user_marker(user_id)
       markers = nearby_markers(user_marker, user_id)
 
-      # here is where we call a function that finds the nearest nearby marker and sets
-        # user.zombie accordingly
+      message = game_logic(user, user_marker, markers)
 
       if markers
         results = markers.each_with_object([]) do |marker, array|
@@ -19,7 +19,9 @@ class MarkersController < ApplicationController
             zombie: marker.zombie
           }
         end
+
         render json: {
+          message: message,
           markers: {
             user: {
               position: {
@@ -87,6 +89,34 @@ class MarkersController < ApplicationController
 
     Marker.where("created_at >= ? AND created_at <= ? AND (lat BETWEEN ? AND ?) AND (lng BETWEEN ? AND ?) AND user_id != ?",
      user_marker.created_at.beginning_of_day, user_marker.created_at.end_of_day, lat_min, lat_max, lng_min, lng_max, user_id)
+  end
+
+  def game_logic(user, user_marker, markers)
+    message = user_marker.zombie ? "zombie-" : "human-"
+
+    distance_list = markers.map { |marker|
+      a = user_marker.lng - marker.lng
+      b = user_marker.lat - marker.lat
+      distance = (a.power(2) + b.power(2)).sqrt(1).to_f
+      { zombie: marker.zombie, distance: distance }
+    }
+
+    sorted = distance_list.sort {|x,y| x[:distance] <=> y[:distance]}
+    closest_marker_zombie_attr = sorted.first[:zombie]
+
+    if closest_marker_zombie_attr
+      user.zombie = true
+      message += "loss"
+    else
+      if user.updated_at < Time.zone.today
+        user.score += 1
+      end
+      message += "win"
+    end
+
+    user.save
+
+    message
   end
 
 end

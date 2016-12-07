@@ -41,6 +41,9 @@ names.each { |name|
   else
     user.zombie = false
   end
+
+  user.created_at = 1.days.ago
+  user.updated_at = 1.days.ago
   user.save
 
   lat = rand(s_lat..n_lat)
@@ -49,5 +52,6 @@ names.each { |name|
   marker = Marker.new(user_id: user.id, lat: lat, lng: lng)
   marker.zombie = marker.user.zombie
   marker.created_at = 1.days.ago
+  marker.updated_at = 1.days.ago
   marker.save
 }

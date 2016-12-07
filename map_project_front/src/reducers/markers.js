@@ -25,14 +25,7 @@ export default function markers(state = defaultState, action){
             lat: action.payload.lat,
             lng: action.payload.lng
           },
-          icon: {
-            url: `/images/user-${iconSelector(action.payload.zombie)}.png`,
-            scaledSize: {
-              height: 40,
-              width: 40
-            },
-            anchor: {x: 20, y: 20}
-          }
+          icon: state.user.icon
         },
         nearby: []
       }
@@ -44,7 +37,7 @@ export default function markers(state = defaultState, action){
             lng: parseFloat(action.payload.marker.position.lng)
           },
           icon: {
-            url: `/images/user-${iconSelector(action.payload.zombie)}.png`,
+            url: `/images/user-${iconSelector(action.payload.user.zombie)}.png`,
             scaledSize: {
               height: 40,
               width: 40
@@ -55,6 +48,9 @@ export default function markers(state = defaultState, action){
         nearby: []
       }
     case "GET_RESULTS":
+
+      // Figure out what to do with action.payload.message ("human-loss", "human-win", "zombie-loss", "zombie-win")
+
       return {
         user: {
           position: {
@@ -86,7 +82,8 @@ export default function markers(state = defaultState, action){
             }
           }
         }),
-        date: action.payload.markers.date
+        date: action.payload.markers.date,
+        message: action.payload.message
       }
     case "LOGOUT":
       return defaultState
