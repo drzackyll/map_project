@@ -11,11 +11,14 @@ class MarkersController < ApplicationController
       markers = Marker.where("created_at >= ? AND created_at <= ? AND (lat BETWEEN ? AND ?) AND (lng BETWEEN ? AND ?) AND user_id != ?",
        user_marker.created_at.beginning_of_day, user_marker.created_at.end_of_day, lat_min, lat_max, lng_min, lng_max, user_id)
       if markers
-        results = markers.each_with_object({}) do |marker, hash|
-          hash["position"] = {}
-          hash["position"]["lat"] = marker.lat
-          hash["position"]["lng"] = marker.lng
-          hash["zombie"] = marker.zombie
+        results = markers.each_with_object([]) do |marker, array|
+          array << {
+            position: {
+              lat: marker.lat,
+              lng: marker.lng
+            },
+            zombie: marker.zombie
+          }
         end
         render json: {
           markers: {

@@ -2,7 +2,6 @@ import React, { Component } from "react"
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { findLocation, getResults } from '../actions/map'
-import { getStatus } from '../actions/user'
 import MapWrapper from './MapWrapper'
 
 class ResultsMap extends Component {
@@ -60,7 +59,6 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     findLocation,
-    getStatus,
     getResults
   }, dispatch)
 }

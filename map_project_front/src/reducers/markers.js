@@ -55,6 +55,7 @@ export default function markers(state = defaultState, action){
         nearby: []
       }
     case "GET_RESULTS":
+    debugger
       return action.payload
     case "LOGOUT":
       return defaultState
