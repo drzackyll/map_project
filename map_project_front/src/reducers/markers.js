@@ -33,7 +33,8 @@ export default function markers(state = defaultState, action){
             },
             anchor: {x: 20, y: 20}
           }
-        }
+        },
+        nearby: []
       }
     case "GET_STATUS":
       return {
@@ -50,10 +51,11 @@ export default function markers(state = defaultState, action){
             },
             anchor: {x: 20, y: 20}
           }
-        }
+        },
+        nearby: []
       }
     case "LOGOUT":
-      return {position: {lat: 0, lng: 0}}
+      return defaultState
     default:
       return state
   }

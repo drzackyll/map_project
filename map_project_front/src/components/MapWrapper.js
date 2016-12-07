@@ -22,6 +22,15 @@ const MapWrapper = withScriptjs(
       <Marker
         {...props.markers.user}
       />
+      {
+        props.markers.nearby.map(marker => {
+          return (
+            <Marker
+              {...marker}
+            />
+          )
+        })
+      }
     </GoogleMap>
   ))
 )
