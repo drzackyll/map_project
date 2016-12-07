@@ -19,6 +19,7 @@ function iconSelector(zombie) { // finish this
 export default function markers(state = defaultState, action){
   switch (action.type) {
     case "SET_MARKER":
+    debugger
       return {
         user: {
           position: {
@@ -35,6 +36,7 @@ export default function markers(state = defaultState, action){
         }
       }
     case "GET_STATUS":
+      debugger
       return {
         user: {
           position: {
@@ -42,7 +44,7 @@ export default function markers(state = defaultState, action){
             lng: parseFloat(action.payload.marker.position.lng)
           },
           icon: {
-            url: "/images/Dick_Butt.png",
+            url: `/images/user-${iconSelector(action.payload.zombie)}.png`,
             scaledSize: {
               height: 40,
               width: 40
