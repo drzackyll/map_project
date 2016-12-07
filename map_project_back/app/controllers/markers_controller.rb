@@ -16,7 +16,8 @@ class MarkersController < ApplicationController
               lat: marker.lat,
               lng: marker.lng
             },
-            zombie: marker.zombie
+            zombie: marker.zombie,
+            username: marker.user.username
           }
         end
 
