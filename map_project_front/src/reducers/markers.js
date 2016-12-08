@@ -5,7 +5,8 @@ const defaultState = {
       lng: 0
     }
   },
-  nearby: []
+  nearby: [],
+  status: ""
 }
 
 function iconSelector(zombie) { // finish this
@@ -43,8 +44,11 @@ export default function markers(state = defaultState, action){
           },
           icon: state.user.icon
         },
-        nearby: []
+        nearby: [],
+        status: ""
       }
+    case "SUBMIT_MARKER":
+      return Object.assign({}, state, action.payload)
     case "GET_STATUS":
       return {
         user: {
@@ -61,7 +65,8 @@ export default function markers(state = defaultState, action){
             anchor: {x: 20, y: 20}
           }
         },
-        nearby: []
+        nearby: [],
+        status: ""
       }
     case "GET_RESULTS":
       return {

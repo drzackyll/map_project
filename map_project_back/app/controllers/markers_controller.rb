@@ -75,12 +75,16 @@ class MarkersController < ApplicationController
     marker.zombie = marker.user.zombie
     marker.save
 
-    render json: {}
+    render json: {
+      status: "created"
+    }
   end
 
   def update_marker(marker, params)
     marker.update(lat: params["data"]["lat"], lng: params["data"]["lng"])
-    render json: {}
+    render json: {
+      status: "updated"
+    }
   end
 
   def last_user_marker(user_id)
