@@ -10,10 +10,23 @@ function Leaderboard(props) {
     </tr>
   )
 
+  function score_header() {
+    if (props.data.id === "Zombie") {
+      return <td>Humans<br/>Infected</td>
+    } else {
+      return <td>Days<br/>Survived</td>
+    }
+  }
+
   return (
     <div className={props.data.id}>
       <h2>Top {props.data.id}s</h2>
       <table>
+        <thead>
+          <td>Rank</td>
+          <td>User</td>
+          {score_header()}
+        </thead>
         <tbody>
           {data_rows}
         </tbody>
