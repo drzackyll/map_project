@@ -3,5 +3,5 @@ Rails.application.routes.draw do
   resources :users, only: [:create, :index]
   resources :sessions, only: [:create]
   resources :markers, only: [:create, :index]
-
+  resources :scores, only: [:index]
 end

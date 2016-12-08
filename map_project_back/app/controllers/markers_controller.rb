@@ -111,7 +111,6 @@ class MarkersController < ApplicationController
       neighbor = sorted[1][:marker]
       { marker: marker, neighbor: neighbor }
     }
-
     if !user_marker.zombie
       message = human_logic(markers_neighbors, user_marker, user)
     else
@@ -128,12 +127,20 @@ class MarkersController < ApplicationController
 
     if user_marker_neighbor[:neighbor][:zombie]
       user.zombie = true
-      message = "human-loss"
+      message = {
+        status: "hl",
+        neighbor: user_marker_neighbor[:neighbor].user.username,
+        infected: []
+      }
     else
       if user.updated_at < Time.zone.today
         user.days_survived += 1
       end
-      message = "human-win"
+      message = {
+        status: "hw",
+        neighbor: user_marker_neighbor[:neighbor].user.username,
+        infected: []
+      }
     end
 
     user.save
@@ -141,20 +148,28 @@ class MarkersController < ApplicationController
   end
 
   def zombie_logic(markers_neighbors, user_marker, user)
-    human_neighbor_count = markers_neighbors.count { |marker_neighbor|
+    infected_markers_neighbors = markers_neighbors.select { |marker_neighbor|
       marker_is_human = !marker_neighbor[:marker][:zombie]
       neighbor_is_user = marker_neighbor[:neighbor] == user_marker
 
       marker_is_human && neighbor_is_user
     }
 
-    if human_neighbor_count == 0
-      message = "zombie-loss"
+    if infected_markers_neighbors.length == 0
+      message = {
+        status: "zl",
+        neighbor: "",
+        infected: []
+      }
     else
       if user.updated_at < Time.zone.today
-        user.humans_infected += human_neighbor_count
+        user.humans_infected += infected_markers_neighbors.length
       end
-      message = "zombie-win #{human_neighbor_count}"
+      message = {
+        status: "zw",
+        neighbor: "",
+        infected: infected_markers_neighbors.map { |marker_neighbor| marker_neighbor[:marker].user.username }
+      }
     end
 
     user.save

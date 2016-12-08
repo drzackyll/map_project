@@ -22,3 +22,61 @@
   margin: 1rem;
   list-style: none;
 }
+
+.UserScore h2 {
+  text-align: center;
+}
+
+.UserScore table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.UserScore th {
+  text-align: center;
+  font-size: 200%;
+}
+
+.UserScore th#human {
+  color: green;
+}
+
+.UserScore th#zombie {
+  color: red;
+}
+
+.Leaderboard table {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+}
+
+.Human h2 {
+  text-align: center;
+}
+
+.Human tbody td {
+  font-size: 150%;
+}
+
+.Human tbody tr:first-child td {
+  color: green;
+  font-weight: bold;
+}
+
+.Zombie h2 {
+  text-align: center;
+}
+
+.Zombie tbody td {
+  font-size: 150%;
+}
+
+.Zombie tbody tr:first-child td {
+  color: red;
+  font-weight: bold;
+}
+
+.no-bottom {
+  border-bottom: none;
+}

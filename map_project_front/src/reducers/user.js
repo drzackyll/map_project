@@ -12,6 +12,7 @@ export default function user(state = {}, action){
       localStorage.removeItem('token')
       return {}
     case "GET_STATUS":
+    case "GET_SCORES":
       return action.payload.user
     default:
       return state

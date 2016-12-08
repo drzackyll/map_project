@@ -38,8 +38,10 @@ names.each { |name|
   user = User.new(username: name, password: name)
   if rand(1..6) == 6
     user.zombie = true
+    user.humans_infected = rand(1..25)
   else
     user.zombie = false
+    user.days_survived = rand(1..10)
   end
 
   user.created_at = 1.days.ago
