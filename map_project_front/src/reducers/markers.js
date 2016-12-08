@@ -16,6 +16,22 @@ function iconSelector(zombie) { // finish this
   }
 }
 
+function parseMessage(message) {
+  switch (message.status) {
+    case "hl":
+      return `As you searched for supplies, you were caught off-guard by ${message.neighbor}. You fought bravely, but in the end, you were infected. You have become a zombie!`
+    case "hw":
+      return `By staying alert and carefully choosing your actions, you survived the night. You crossed paths with ${message.neighbor}, trading stories and supplies.`
+    case "zw":
+      const joined_infected = [message.infected.slice(0, -1).join(', '), message.infected.slice(-1)[0]].join(message.infected.length < 2 ? '' : ' and ')
+      return `In the cold dark night, you stumbled upon unaware prey. Your unending hunger for human flesh was momentarily satisfied. You infected ${joined_infected}.`
+    case "zl":
+      return "You shambled aimlessly through the night, finding no humans. Your hunger grows ever more unsated, but tomorrow is a new day, and the scent of human flesh is in the air."
+    default:
+      return "ERROR: SOMETHING BROKE"
+  }
+}
+
 export default function markers(state = defaultState, action){
   switch (action.type) {
     case "SET_MARKER":
@@ -48,9 +64,6 @@ export default function markers(state = defaultState, action){
         nearby: []
       }
     case "GET_RESULTS":
-
-      // Figure out what to do with action.payload.message ("human-loss", "human-win", "zombie-loss", "zombie-win")
-
       return {
         user: {
           position: {
@@ -86,7 +99,7 @@ export default function markers(state = defaultState, action){
           }
         }),
         date: action.payload.markers.date,
-        message: action.payload.message
+        message: parseMessage(action.payload.message)
       }
     case "LOGOUT":
       return defaultState
