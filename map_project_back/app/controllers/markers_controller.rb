@@ -93,30 +93,47 @@ class MarkersController < ApplicationController
   end
 
   def game_logic(user, user_marker, markers)
-    message = user_marker.zombie ? "zombie-" : "human-"
+    full_markers = markers + [user_marker]
 
-    distance_list = markers.map { |marker|
-      a = user_marker.lng - marker.lng
-      b = user_marker.lat - marker.lat
-      distance = (a.power(2) + b.power(2)).sqrt(1).to_f
-      { zombie: marker.zombie, distance: distance }
+    markers_neighbors = markers.map { |marker|
+      markers_distances = full_markers.map { |comp_marker|
+        a = marker.lng - comp_marker.lng
+        b = marker.lat - comp_marker.lat
+        distance = (a.power(2) + b.power(2)).sqrt(1).to_f
+        { marker: comp_marker, distance: distance }
+      }
+      sorted = markers_distances.sort {|x,y| x[:distance] <=> y[:distance]}
+      neighbor = sorted[1][:marker]
+      { marker: marker, neighbor: neighbor}
     }
 
-    sorted = distance_list.sort {|x,y| x[:distance] <=> y[:distance]}
-    closest_marker_zombie_attr = sorted.first[:zombie]
 
-    if closest_marker_zombie_attr
-      user.zombie = true
-      message += "loss"
-    else
-      if user.updated_at < Time.zone.today
-        user.score += 1
+    if !user_marker.zombie  # human logic
+      markers_distances = markers.map { |marker|
+        a = user_marker.lng - marker.lng
+        b = user_marker.lat - marker.lat
+        distance = (a.power(2) + b.power(2)).sqrt(1).to_f
+        { marker: marker, distance: distance }
+      }
+
+      sorted = markers_distances.sort {|x,y| x[:distance] <=> y[:distance]}
+      neighbor = sorted.first[:marker]
+
+      if neighbor[:zombie]
+        user.zombie = true
+        message = "human-loss"
+      else
+        if user.updated_at < Time.zone.today
+          user.days_survived += 1
+        end
+        message = "human-win"
       end
-      message += "win"
+    else  # zombie logic
+      markers.each { |marker|
+
+      }
     end
-
     user.save
-
     message
   end
 

@@ -28,7 +28,8 @@ ActiveRecord::Schema.define(version: 20161205221936) do
     t.string   "username"
     t.string   "password_digest"
     t.boolean  "zombie"
-    t.integer  "score",           default: 0
+    t.integer  "days_survived",   default: 0
+    t.integer  "humans_infected", default: 0
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
   end

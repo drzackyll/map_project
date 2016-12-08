@@ -4,7 +4,8 @@ class CreateUsers < ActiveRecord::Migration[5.0]
       t.string :username
       t.string :password_digest
       t.boolean :zombie
-      t.integer :score, default: 0
+      t.integer :days_survived, default: 0
+      t.integer :humans_infected, default: 0
 
       t.timestamps
     end
