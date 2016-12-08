@@ -12,8 +12,6 @@ class MarkersController < ApplicationController
         markers = nil
       end
 
-
-
       if markers
         results = markers.each_with_object([]) do |marker, array|
           array << {

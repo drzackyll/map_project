@@ -14,11 +14,10 @@ class ResultsMap extends Component {
   }
 
   handleMapClick(event) {
-    console.log("dickbutt")
+    console.log("Dang it Bobby!")
   }
 
   loaded() {
-    // debugger
     const nearbyMarkersEmpty = this.props.markers.nearby.length === 0
     return !nearbyMarkersEmpty
   }

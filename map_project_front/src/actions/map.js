@@ -39,7 +39,6 @@ export function getResults(){
     contentType: "application/json; charset=utf-8",
     dataType: "json"
   }).done(function(response){
-    // debugger;
     if (response.error === "no markers"){
     alert("Please set a marker and check back tomorrow!")
     browserHistory.push('/newmove')
