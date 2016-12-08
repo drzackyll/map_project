@@ -21,7 +21,7 @@ class Scoreboard extends Component {
      this.loaded() ? (
         <div className="Scoreboard">
           <div className="UserScore">
-            <h2>{this.props.user.username}</h2>
+            <h2>{this.props.user.zombie ? "Zombie" : "Human"} {this.props.user.username}</h2>
             <table>
               <tbody>
                 <tr>
@@ -34,10 +34,12 @@ class Scoreboard extends Component {
           <hr />
           <div className="Leaderboard">
             <table>
-              <tr clasName="row">
-                <td className="no-bottom six columns"><Leaderboard data={this.props.scores.human}/></td>
-                <td className="no-bottom six columns"><Leaderboard data={this.props.scores.zombie}/></td>
-              </tr>
+              <tbody>
+                <tr className="row">
+                  <td className="no-bottom six columns"><Leaderboard data={this.props.scores.human}/></td>
+                  <td className="no-bottom six columns"><Leaderboard data={this.props.scores.zombie}/></td>
+                </tr>
+              </tbody>
             </table>
           </div>
         </div>

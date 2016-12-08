@@ -25,6 +25,7 @@ class ScoresController < ApplicationController
       render json: {
         user: {
           username: user.username,
+          zombie: user.zombie,
           days_survived: user.days_survived,
           humans_infected: user.humans_infected
         },

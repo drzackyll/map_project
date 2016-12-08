@@ -12,7 +12,7 @@ function Leaderboard(props) {
 
   return (
     <div className={props.data.id}>
-      <h2>Top {props.data.id}</h2>
+      <h2>Top {props.data.id}s</h2>
       <table>
         <tbody>
           {data_rows}
