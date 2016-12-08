@@ -10,9 +10,8 @@ function UserLogin(props) {
 
     const username = event.target.children.username.value
     const password = event.target.children.password.value
-
     props.login(username, password)
-    browserHistory.push('/newmove')
+    browserHistory.push('/results')
   }
 
   return (

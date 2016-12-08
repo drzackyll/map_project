@@ -18,8 +18,8 @@ class ResultsMap extends Component {
   }
 
   loaded() {
+    // debugger
     const nearbyMarkersEmpty = this.props.markers.nearby.length === 0
-
     return !nearbyMarkersEmpty
   }
 

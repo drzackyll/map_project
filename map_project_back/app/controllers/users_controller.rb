@@ -12,7 +12,8 @@ class UsersController < ApplicationController
     if user.save
       jwt = Auth.issue({user_id: user.id})
       render json: {
-        jwt: jwt
+        jwt: jwt,
+        previous_marker: false
       }
     else
       render json: {

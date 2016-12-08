@@ -5,9 +5,14 @@ class MarkersController < ApplicationController
     if user_id
       user = User.find(user_id)
       user_marker = last_user_marker(user_id)
-      markers = nearby_markers(user_marker, user_id)
+      if user_marker
+        markers = nearby_markers(user_marker, user_id)
+        message = game_logic(user, user_marker, markers)
+      else
+        markers = nil
+      end
 
-      message = game_logic(user, user_marker, markers)
+
 
       if markers
         results = markers.each_with_object([]) do |marker, array|

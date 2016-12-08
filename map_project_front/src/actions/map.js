@@ -1,4 +1,5 @@
 import $ from 'jquery'
+import { browserHistory } from 'react-router'
 
 export function findLocation(coords) {
   return {
@@ -30,12 +31,19 @@ export function submitMarker(lat, lng) {
 }
 
 export function getResults(){
+
   const promise = $.ajax({
     url: "http://localhost:3000/markers",
     type: "GET",
     data: {jwt: localStorage.token},
     contentType: "application/json; charset=utf-8",
     dataType: "json"
+  }).done(function(response){
+    // debugger;
+    if (response.error === "no markers"){
+    alert("Please set a marker and check back tomorrow!")
+    browserHistory.push('/newmove')
+    }
   })
 
   return {
