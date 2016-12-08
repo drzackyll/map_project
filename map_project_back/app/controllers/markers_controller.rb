@@ -158,7 +158,7 @@ class MarkersController < ApplicationController
       }
     else
       if user.updated_at < Time.zone.today
-        user.humans_infected += human_neighbor_count
+        user.humans_infected += infected_markers_neighbors.length
       end
       message = {
         status: "zw",

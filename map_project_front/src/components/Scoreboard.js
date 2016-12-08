@@ -5,10 +5,11 @@ import { getScores } from '../actions/scores'
 import Leaderboard from './Leaderboard'
 
 class Scoreboard extends Component {
+  loaded = this.loaded.bind(this)
 
   loaded() {
-    const days_survived_exists = !!this.props.user.days_survived
-    return days_survived_exists
+    const user_loaded = !!this.props.user.username
+    return user_loaded
   }
 
   componentWillMount() {
