@@ -23,9 +23,11 @@ function Leaderboard(props) {
       <h2>Top {props.data.id}s</h2>
       <table>
         <thead>
-          <td>Rank</td>
-          <td>User</td>
-          {score_header()}
+          <tr>
+            <td>Rank</td>
+            <td>User</td>
+            {score_header()}
+          </tr>
         </thead>
         <tbody>
           {data_rows}
