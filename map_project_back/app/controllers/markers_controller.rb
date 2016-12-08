@@ -106,7 +106,6 @@ class MarkersController < ApplicationController
       neighbor = sorted[1][:marker]
       { marker: marker, neighbor: neighbor }
     }
-
     if !user_marker.zombie
       message = human_logic(markers_neighbors, user_marker, user)
     else

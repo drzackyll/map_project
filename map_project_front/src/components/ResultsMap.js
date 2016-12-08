@@ -29,7 +29,6 @@ class ResultsMap extends Component {
         this.props.findLocation(position.coords)
       )
     })
-    // this.props.getRESULTS
   }
 
   render() {

@@ -8,16 +8,16 @@ class ScoresController < ApplicationController
       human_scores_json = human_scores.each_with_object([]) do |user, array|
         array << {
           username: user.username,
-          days_survived: user.days_survived,
+          score: user.days_survived,
           key: user.username
         }
       end
 
       zombie_scores = User.order(humans_infected: :desc).limit(10)
-      zombie_scores_json = human_scores.each_with_object([]) do |user, array|
+      zombie_scores_json = zombie_scores.each_with_object([]) do |user, array|
         array << {
           username: user.username,
-          humans_infected: user.humans_infected
+          score: user.humans_infected,
           key: user.username
         }
       end
@@ -29,8 +29,14 @@ class ScoresController < ApplicationController
           humans_infected: user.humans_infected
         },
         scores: {
-          human: human_scores_json,
-          zombie: zombie_scores_json
+          human: {
+            list: human_scores_json,
+            id: "Human"
+          },
+          zombie: {
+            list: zombie_scores_json,
+            id: "Zombie"
+          }
         }
       }
     else
