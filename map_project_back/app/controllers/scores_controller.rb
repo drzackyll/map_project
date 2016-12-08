@@ -8,7 +8,8 @@ class ScoresController < ApplicationController
       human_scores_json = human_scores.each_with_object([]) do |user, array|
         array << {
           username: user.username,
-          days_survived: user.days_survived
+          days_survived: user.days_survived,
+          key: user.username
         }
       end
 
@@ -17,6 +18,7 @@ class ScoresController < ApplicationController
         array << {
           username: user.username,
           humans_infected: user.humans_infected
+          key: user.username
         }
       end
 
