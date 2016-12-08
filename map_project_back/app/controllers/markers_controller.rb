@@ -95,44 +95,63 @@ class MarkersController < ApplicationController
   def game_logic(user, user_marker, markers)
     full_markers = markers + [user_marker]
 
-    markers_neighbors = markers.map { |marker|
+    markers_neighbors = full_markers.map { |marker|
       markers_distances = full_markers.map { |comp_marker|
         a = marker.lng - comp_marker.lng
         b = marker.lat - comp_marker.lat
         distance = (a.power(2) + b.power(2)).sqrt(1).to_f
         { marker: comp_marker, distance: distance }
       }
-      sorted = markers_distances.sort {|x,y| x[:distance] <=> y[:distance]}
+      sorted = markers_distances.sort { |x,y| x[:distance] <=> y[:distance] }
       neighbor = sorted[1][:marker]
-      { marker: marker, neighbor: neighbor}
+      { marker: marker, neighbor: neighbor }
     }
 
-
-    if !user_marker.zombie  # human logic
-      markers_distances = markers.map { |marker|
-        a = user_marker.lng - marker.lng
-        b = user_marker.lat - marker.lat
-        distance = (a.power(2) + b.power(2)).sqrt(1).to_f
-        { marker: marker, distance: distance }
-      }
-
-      sorted = markers_distances.sort {|x,y| x[:distance] <=> y[:distance]}
-      neighbor = sorted.first[:marker]
-
-      if neighbor[:zombie]
-        user.zombie = true
-        message = "human-loss"
-      else
-        if user.updated_at < Time.zone.today
-          user.days_survived += 1
-        end
-        message = "human-win"
-      end
-    else  # zombie logic
-      markers.each { |marker|
-
-      }
+    if !user_marker.zombie
+      message = human_logic(markers_neighbors, user_marker, user)
+    else
+      message = zombie_logic(markers_neighbors, user_marker, user)
     end
+
+    message
+  end
+
+  def human_logic(markers_neighbors, user_marker, user)
+    user_marker_neighbor = markers_neighbors.find { |marker_neighbor|
+      marker_neighbor[:marker] == user_marker
+    }
+
+    if user_marker_neighbor[:neighbor][:zombie]
+      user.zombie = true
+      message = "human-loss"
+    else
+      if user.updated_at < Time.zone.today
+        user.days_survived += 1
+      end
+      message = "human-win"
+    end
+
+    user.save
+    message
+  end
+
+  def zombie_logic(markers_neighbors, user_marker, user)
+    human_neighbor_count = markers_neighbors.count { |marker_neighbor|
+      marker_is_human = !marker_neighbor[:marker][:zombie]
+      neighbor_is_user = marker_neighbor[:neighbor] == user_marker
+
+      marker_is_human && neighbor_is_user
+    }
+
+    if human_neighbor_count == 0
+      message = "zombie-loss"
+    else
+      if user.updated_at < Time.zone.today
+        user.humans_infected += human_neighbor_count
+      end
+      message = "zombie-win #{human_neighbor_count}"
+    end
+
     user.save
     message
   end
