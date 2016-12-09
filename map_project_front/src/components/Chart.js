@@ -5,14 +5,14 @@ function PieChart(props) {
   const data = [
     {
       value: `${props.count.human_count}`,
-      color: "green",
-      highlight: "#329932",
+      color: "#287FCC",
+      highlight: "#1B578C",
       label: "Humans"
     },
     {
       value: `${props.count.zombie_count}`,
-      color: "red",
-      highlight: "#FF4C4C",
+      color: "#F75448",
+      highlight: "#B73E35",
       label: "Zombies"
     }
   ]

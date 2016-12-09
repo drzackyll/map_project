@@ -37,10 +37,10 @@ function NavBar(props) {
 
   return (
     <div className="NavBar row">
-      <div className="three columns">
-      <h1>Z-Tag</h1>
+      <div className="four columns">
+        <h1>Z-Tag</h1>
       </div>
-      <div className="nine columns">
+      <div className="eight columns">
         {navBarItems()}
       </div>
     </div>

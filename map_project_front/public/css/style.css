@@ -1,7 +1,7 @@
 .NavBar {
   font-family: 'Creepster', cursive;
   color: #eee;
-  background-color: #000;
+  background: url("/images/inflicted.png");
   display: table;
   width: 100%;
   margin-bottom: 1rem;
@@ -9,15 +9,15 @@
 
 .NavBar h1 {
   float: left;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
   margin-left: 4rem;
   color: #F75448;
   font-size: 5rem;
 }
 
 .NavBar ul {
-  margin-top: 1.5rem;
-  margin-right: 1.5rem;
+  margin-top: 2rem;
+  margin-right: 2.5rem;
   }
 
 .NavBar li {
@@ -104,4 +104,8 @@
 
 .no-bottom {
   border-bottom: none;
+}
+
+body {
+  background: #eee;
 }
