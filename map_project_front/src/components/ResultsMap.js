@@ -34,7 +34,8 @@ class ResultsMap extends Component {
     return (
        this.loaded() ? (
         <div style={{height: `600px`}}>
-          <h3>{this.props.markers.message}</h3>
+          <h2>Results for {this.props.markers.date}</h2>
+          <h4>{this.props.markers.message}</h4>
           <MapWrapper
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvYpyQDXZ3DL9e-zmyc4Fs0JViGlgFj58"
             loadingElement={ <div style={{ height: `100%` }}><h1>Loading...</h1></div> }
@@ -45,7 +46,6 @@ class ResultsMap extends Component {
             center={this.props.markers.user.position}
             markers={this.props.markers}
           />
-          <p>Results for {this.props.markers.date}</p>
         </div>
       ) : (
         <h1>Loading...</h1>

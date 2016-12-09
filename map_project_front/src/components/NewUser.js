@@ -17,7 +17,7 @@ function NewUser(props) {
 
   return (
     <div className="NewUser">
-      <h1>Create User</h1>
+      <h3>Create User</h3>
       <form onSubmit={handleSubmit.bind(this)}>
         <label htmlFor="username">Username: </label>
         <input id="username" type="text"/>

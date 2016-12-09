@@ -59,20 +59,24 @@ class NewMoveMap extends Component {
   render() {
     return (
        this.loaded() ? (
-        <div style={{height: `600px`}}>
-          <h3>{this.props.user.zombie ? "You're a zombie! Go find a place to eat people!" : "You're a human! Find a place to hide from the zombies!"}</h3>
-          <MapWrapper
-            googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvYpyQDXZ3DL9e-zmyc4Fs0JViGlgFj58"
-            loadingElement={ <div style={{ height: `100%` }}><h1>Loading...</h1></div> }
-            containerElement={ <div style={{ height: `100%` }} /> }
-            mapElement={ <div style={{ height: `100%` }} /> }
-            onMapLoad={this.handleMapLoad}
-            onMapClick={this.handleMapClick}
-            center={{lat: this.props.location.lat, lng: this.props.location.lng}}
-            markers={this.props.markers}
-          />
-          <button onClick={this.handleButtonClick.bind(this)}>Set Location</button>
-          {this.markerMessage()}
+        <div className="row">
+          <div className="three columns">
+            <h3>{this.props.user.zombie ? "You're a zombie! Go find a place to eat people!" : "You're a human! Find a place to hide from the zombies!"}</h3>
+            <button onClick={this.handleButtonClick.bind(this)}>Set Location</button>
+            <h4>{this.markerMessage()}</h4>
+          </div>
+          <div style={{height: `600px`}} className="nine columns">
+            <MapWrapper
+              googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvYpyQDXZ3DL9e-zmyc4Fs0JViGlgFj58"
+              loadingElement={ <div style={{ height: `100%` }}><h1>Loading...</h1></div> }
+              containerElement={ <div style={{ height: `100%` }} /> }
+              mapElement={ <div style={{ height: `100%` }} /> }
+              onMapLoad={this.handleMapLoad}
+              onMapClick={this.handleMapClick}
+              center={{lat: this.props.location.lat, lng: this.props.location.lng}}
+              markers={this.props.markers}
+            />
+          </div>
         </div>
       ) : (
         <h1>Loading...</h1>

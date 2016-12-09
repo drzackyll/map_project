@@ -1,14 +1,18 @@
 .NavBar {
-  background-color: #eee;
+  font-family: 'Creepster', cursive;
+  color: #eee;
+  background-color: #000;
   display: table;
   width: 100%;
   margin-bottom: 1rem;
 }
 
-.NavBar h2 {
+.NavBar h1 {
   float: left;
-  margin-top: 1rem;
-  margin-left: 2.5rem;
+  margin-top: 1.5rem;
+  margin-left: 4rem;
+  color: #F75448;
+  font-size: 5rem;
 }
 
 .NavBar ul {
@@ -19,8 +23,13 @@
 .NavBar li {
   float: right;
   display: table-cell;
-  margin: 1rem;
+  margin: 1.5rem;
   list-style: none;
+}
+
+.NavBar a {
+  text-decoration: none;
+  font-size: 2rem;
 }
 
 .UserScore h2 {
@@ -38,11 +47,11 @@
 }
 
 .UserScore th#human {
-  color: green;
+  color: #287FCC;
 }
 
 .UserScore th#zombie {
-  color: red;
+  color: #F75448;
 }
 
 .Leaderboard table {
@@ -60,7 +69,7 @@
 }
 
 .Human tbody tr:first-child td {
-  color: green;
+  color: #287FCC;
   font-weight: bold;
 }
 
@@ -73,7 +82,7 @@
 }
 
 .Zombie tbody tr:first-child td {
-  color: red;
+  color: #F75448;
   font-weight: bold;
 }
 
