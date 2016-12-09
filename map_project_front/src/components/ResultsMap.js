@@ -18,8 +18,8 @@ class ResultsMap extends Component {
   }
 
   loaded() {
-    const nearbyMarkersEmpty = this.props.markers.nearby.length === 0
-    return !nearbyMarkersEmpty
+    const messageExists = !!this.props.markers.message
+    return messageExists
   }
 
   componentWillMount() {

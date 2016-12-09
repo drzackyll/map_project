@@ -23,11 +23,14 @@ function parseMessage(message) {
       return `As you searched for supplies, you were caught off-guard by ${message.neighbor}. You fought bravely, but in the end, you were infected. You have become a zombie!`
     case "hw":
       return `By staying alert and carefully choosing your actions, you survived the night. You crossed paths with ${message.neighbor}, trading stories and supplies.`
+    case "hd":
+      return "The night is strangely empty. You eat your scavenged beans and rest easy for now."
     case "zw":
       const joined_infected = [message.infected.slice(0, -1).join(', '), message.infected.slice(-1)[0]].join(message.infected.length < 2 ? '' : ' and ')
       return `In the cold dark night, you stumbled upon unaware prey. Your unending hunger for human flesh was momentarily satisfied. You infected ${joined_infected}.`
     case "zl":
       return "You shambled aimlessly through the night, finding no humans. Your hunger grows ever more unsated, but tomorrow is a new day, and the scent of human flesh is in the air."
+
     default:
       return "ERROR: SOMETHING BROKE"
   }

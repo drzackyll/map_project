@@ -7,7 +7,11 @@ class MarkersController < ApplicationController
       user_marker = last_user_marker(user_id)
       if user_marker
         markers = nearby_markers(user_marker, user_id)
-        message = game_logic(user, user_marker, markers)
+        if markers.length != 0
+          message = game_logic(user, user_marker, markers)
+        else
+          message = loner_logic(user, user_marker)
+        end
       else
         markers = nil
       end
@@ -113,6 +117,7 @@ class MarkersController < ApplicationController
       neighbor = sorted[1][:marker]
       { marker: marker, neighbor: neighbor }
     }
+
     if !user_marker.zombie
       message = human_logic(markers_neighbors, user_marker, user)
     else
@@ -175,6 +180,27 @@ class MarkersController < ApplicationController
     end
 
     user.save
+    message
+  end
+
+  def loner_logic(user, user_marker)
+    if user_marker[:zombie]
+      message = {
+        status: "zl",
+        neighbor: "",
+        infected: []
+      }
+    else
+      if user.updated_at < Time.zone.today
+        user.days_survived += 1
+      end
+      message = {
+        status: "hd",
+        neighbor: "",
+        infected: []
+      }
+    end
+
     message
   end
 
