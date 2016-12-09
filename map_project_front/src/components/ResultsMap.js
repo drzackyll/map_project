@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { findLocation, getResults } from '../actions/map'
 import MapWrapper from './MapWrapper'
+import Loading from './Loading'
 
 class ResultsMap extends Component {
   handleMapLoad = this.handleMapLoad.bind(this)
@@ -38,7 +39,7 @@ class ResultsMap extends Component {
           <h4>{this.props.markers.message}</h4>
           <MapWrapper
             googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvYpyQDXZ3DL9e-zmyc4Fs0JViGlgFj58"
-            loadingElement={ <div style={{ height: `100%` }}><h1>Loading...</h1></div> }
+            loadingElement={ <Loading /> }
             containerElement={ <div style={{ height: `100%` }} /> }
             mapElement={ <div style={{ height: `100%` }} /> }
             onMapLoad={this.handleMapLoad}
@@ -48,7 +49,7 @@ class ResultsMap extends Component {
           />
         </div>
       ) : (
-        <h1>Loading...</h1>
+        <Loading />
       )
     )
   }

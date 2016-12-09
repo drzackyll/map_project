@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 import { getScores } from '../actions/scores'
 import Leaderboard from './Leaderboard'
+import Loading from './Loading'
 import PieChart from './Chart'
 
 class Scoreboard extends Component {
@@ -56,7 +57,7 @@ class Scoreboard extends Component {
           </div>
         </div>
       ) : (
-        <h1>Loading...</h1>
+        <Loading />
       )
     )
   }

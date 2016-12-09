@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { findLocation, setMarker, submitMarker } from '../actions/map'
 import { getStatus } from '../actions/user'
 import MapWrapper from './MapWrapper'
+import Loading from './Loading'
 
 class NewMoveMap extends Component {
   handleMapLoad = this.handleMapLoad.bind(this)
@@ -42,15 +43,34 @@ class NewMoveMap extends Component {
     })
   }
 
+  randomZombieTalk() {
+    function getRandomIntInclusive(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    const zombieTalk = [
+      '"Mmrraaaahhhhh..."',
+      '"Bleeggghhhhhh..."',
+      '"Hhrrruuurrggg..."',
+      '"Nnyuuuuhhhhhh..."',
+      '"Ggggrrreeeehh..."'
+    ]
+
+    return zombieTalk[getRandomIntInclusive(0,4)]
+  }
+
   markerMessage() {
-    if (this.props.user.zombie && this.props.markers.status === "created") {
-      return "Mwwaaahh I eat here tonight"
-    } else if (this.props.user.zombie && this.props.markers.status === "updated") {
-      return "Blergghh No I eat here instead grrrr"
-    } else if (!this.props.user.zombie && this.props.markers.status === "created") {
-      return "Looks safe enough. I'll hide here tonight!"
-    } else if (!this.props.user.zombie && this.props.markers.status === "updated"){
-      return "I'll hide here instead."
+    const statusIsCreated = this.props.markers.status === "created"
+    const statusIsUpdated = this.props.markers.status === "updated"
+
+    if (this.props.user.zombie && (statusIsCreated || statusIsUpdated)) {
+      return this.randomZombieTalk()
+    } else if (statusIsCreated) {
+      return `"Looks safe enough. I'll hide here tonight."`
+    } else if (statusIsUpdated){
+      return `"On second thought, I think I'll hide here instead."`
     } else {
       return ""
     }
@@ -61,14 +81,14 @@ class NewMoveMap extends Component {
        this.loaded() ? (
         <div className="row">
           <div className="three columns">
-            <h3>{this.props.user.zombie ? "You're a zombie! Go find a place to eat people!" : "You're a human! Find a place to hide from the zombies!"}</h3>
+            <h3>{this.props.user.zombie ? "You're a zombie. Find humans to feed your unending hunger." : "You're a human. Find a place to hide from the zombies."}</h3>
             <button onClick={this.handleButtonClick.bind(this)}>Set Location</button>
             <h4>{this.markerMessage()}</h4>
           </div>
           <div style={{height: `600px`}} className="nine columns">
             <MapWrapper
               googleMapURL="https://maps.googleapis.com/maps/api/js?key=AIzaSyAvYpyQDXZ3DL9e-zmyc4Fs0JViGlgFj58"
-              loadingElement={ <div style={{ height: `100%` }}><h1>Loading...</h1></div> }
+              loadingElement={ <Loading /> }
               containerElement={ <div style={{ height: `100%` }} /> }
               mapElement={ <div style={{ height: `100%` }} /> }
               onMapLoad={this.handleMapLoad}
@@ -79,7 +99,7 @@ class NewMoveMap extends Component {
           </div>
         </div>
       ) : (
-        <h1>Loading...</h1>
+        <Loading />
       )
     )
   }
