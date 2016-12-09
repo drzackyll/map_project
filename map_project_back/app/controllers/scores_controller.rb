@@ -3,6 +3,9 @@ class ScoresController < ApplicationController
     user_id = Auth.decode(params["jwt"])["user_id"]
     if user_id
       user = User.find(user_id)
+      users = User.all
+      zombie_count = users.select {|user| user.zombie == true}.count
+      human_count = users.select {|user| user.zombie == false}.count
 
       human_scores = User.order(days_survived: :desc).limit(10)
       human_scores_json = human_scores.each_with_object([]) do |user, array|
@@ -37,6 +40,10 @@ class ScoresController < ApplicationController
           zombie: {
             list: zombie_scores_json,
             id: "Zombie"
+          },
+          count: {
+            human_count: human_count,
+            zombie_count: zombie_count
           }
         }
       }
