@@ -8,9 +8,9 @@ class MarkersController < ApplicationController
       if user_marker
         markers = nearby_markers(user_marker, user_id)
         if markers.length != 0
-          message = game_logic(user, user_marker, markers)
+          message = GameLogic.new(user, user_marker, markers).message
         else
-          message = loner_logic(user, user_marker)
+          message = GameLogic.new(user, user_marker).loner_logic
         end
       else
         markers = nil
@@ -102,106 +102,4 @@ class MarkersController < ApplicationController
     Marker.where("created_at >= ? AND created_at <= ? AND (lat BETWEEN ? AND ?) AND (lng BETWEEN ? AND ?) AND user_id != ?",
      user_marker.created_at.beginning_of_day, user_marker.created_at.end_of_day, lat_min, lat_max, lng_min, lng_max, user_id)
   end
-
-  def game_logic(user, user_marker, markers)
-    full_markers = markers + [user_marker]
-
-    markers_neighbors = full_markers.map { |marker|
-      markers_distances = full_markers.map { |comp_marker|
-        a = marker.lng - comp_marker.lng
-        b = marker.lat - comp_marker.lat
-        distance = (a.power(2) + b.power(2)).sqrt(1).to_f
-        { marker: comp_marker, distance: distance }
-      }
-      sorted = markers_distances.sort { |x,y| x[:distance] <=> y[:distance] }
-      neighbor = sorted[1][:marker]
-      { marker: marker, neighbor: neighbor }
-    }
-
-    if !user_marker.zombie
-      message = human_logic(markers_neighbors, user_marker, user)
-    else
-      message = zombie_logic(markers_neighbors, user_marker, user)
-    end
-
-    message
-  end
-
-  def human_logic(markers_neighbors, user_marker, user)
-    user_marker_neighbor = markers_neighbors.find { |marker_neighbor|
-      marker_neighbor[:marker] == user_marker
-    }
-
-    if user_marker_neighbor[:neighbor][:zombie]
-      user.zombie = true
-      message = {
-        status: "hl",
-        neighbor: user_marker_neighbor[:neighbor].user.username,
-        infected: []
-      }
-    else
-      if user.updated_at < Time.zone.today
-        user.days_survived += 1
-      end
-      message = {
-        status: "hw",
-        neighbor: user_marker_neighbor[:neighbor].user.username,
-        infected: []
-      }
-    end
-
-    user.save
-    message
-  end
-
-  def zombie_logic(markers_neighbors, user_marker, user)
-    infected_markers_neighbors = markers_neighbors.select { |marker_neighbor|
-      marker_is_human = !marker_neighbor[:marker][:zombie]
-      neighbor_is_user = marker_neighbor[:neighbor] == user_marker
-
-      marker_is_human && neighbor_is_user
-    }
-
-    if infected_markers_neighbors.length == 0
-      message = {
-        status: "zl",
-        neighbor: "",
-        infected: []
-      }
-    else
-      if user.updated_at < Time.zone.today
-        user.humans_infected += infected_markers_neighbors.length
-      end
-      message = {
-        status: "zw",
-        neighbor: "",
-        infected: infected_markers_neighbors.map { |marker_neighbor| marker_neighbor[:marker].user.username }
-      }
-    end
-
-    user.save
-    message
-  end
-
-  def loner_logic(user, user_marker)
-    if user_marker[:zombie]
-      message = {
-        status: "zl",
-        neighbor: "",
-        infected: []
-      }
-    else
-      if user.updated_at < Time.zone.today
-        user.days_survived += 1
-      end
-      message = {
-        status: "hd",
-        neighbor: "",
-        infected: []
-      }
-    end
-
-    message
-  end
-
 end
