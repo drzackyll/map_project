@@ -1,11 +1,13 @@
 class MarkersController < ApplicationController
 
   def index
+#     move into app_controller before_action - see other comments.
     user_id = Auth.decode(params["jwt"])["user_id"]
     if user_id
       user = User.find(user_id)
       user_marker = last_user_marker(user_id)
       if user_marker
+
         markers = nearby_markers(user_marker, user_id)
         if markers.length != 0
           message = GameLogic.new(user, user_marker, markers).message
@@ -17,6 +19,8 @@ class MarkersController < ApplicationController
       end
 
       if markers
+#         move into view object
+#         ViewObject.new(GameLogic.new(user, user_marker, markers)).render -> json
         results = markers.each_with_object([]) do |marker, array|
           array << {
             position: {
@@ -57,6 +61,7 @@ class MarkersController < ApplicationController
   def create
     user_id = Auth.decode(params["jwt"])["user_id"]
     if user_id
+#       this should be a method called user.todays_markers, etc.
       marker = Marker.find_by("user_id = ? AND created_at >= ?", user_id, Time.zone.now.beginning_of_day)
       if marker
         update_marker(marker, params)
@@ -92,7 +97,7 @@ class MarkersController < ApplicationController
   def last_user_marker(user_id)
     Marker.where("user_id = ? AND created_at < ?", user_id, Time.zone.now.beginning_of_day).order("created_at ASC").last
   end
-
+#   method near_by_markers should be on the model
   def nearby_markers(user_marker, user_id)
     lat_min = user_marker.lat - 0.004
     lat_max = user_marker.lat + 0.004
