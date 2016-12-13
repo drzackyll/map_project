@@ -14,6 +14,7 @@ const MapWrapper = withScriptjs(
         zoomControl: false,
         scrollwheel: false,
         disableDoubleClickZoom: true,
+//     make a separate file called styles, and import it into this one.
         styles:
         [
           {
