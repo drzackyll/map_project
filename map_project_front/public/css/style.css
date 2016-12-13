@@ -60,17 +60,11 @@
   border-bottom: 1px solid #E1E1E1;
 }
 
-.PieChart table {
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
-}
-
 .PieChart th {
   text-align: center;
 }
 
-.Leaderboard table {
+.Scoreboard table {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
