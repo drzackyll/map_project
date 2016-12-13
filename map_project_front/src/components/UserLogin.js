@@ -7,7 +7,8 @@ import { browserHistory } from 'react-router'
 function UserLogin(props) {
   function handleSubmit(event) {
     event.preventDefault()
-
+//     don't use target.children, etc. instead on an input change, change the state of the component, 
+//     and then pass that state to the store on action creator.
     const username = event.target.children.username.value
     const password = event.target.children.password.value
     props.login(username, password)
