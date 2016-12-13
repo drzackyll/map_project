@@ -7,7 +7,7 @@ import { browserHistory } from 'react-router'
 function NewUser(props) {
   function handleSubmit(event) {
     event.preventDefault()
-
+//     don't access this data via the dom, but instead update the state on every input change.
     const username = event.target.children.username.value
     const password = event.target.children.password.value
 
