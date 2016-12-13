@@ -26,6 +26,7 @@ class Scoreboard extends Component {
             <tbody>
               <tr>
                 <td className="no-bottom six columns">
+//        maybe break things like UserScore as its own component, as this component is feeling pretty long.
                   <div className="UserScore">
                     <h2>{this.props.user.zombie ? "Zombie" : "Human"} {this.props.user.username}</h2>
                     <table>
