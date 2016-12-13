@@ -2,12 +2,12 @@ class UsersController < ApplicationController
 
   def create
     user = User.new(user_params)
-
-    if rand(1..6) == 6
-      user.zombie = true
-    else
-      user.zombie = false
-    end
+#     ZombieMaker.new(user)
+#         if rand(1..6) == 6
+#           user.zombie = true
+#         else
+#           user.zombie = false
+#         end
 
     if user.save
       jwt = Auth.issue({user_id: user.id})
@@ -25,9 +25,11 @@ class UsersController < ApplicationController
   def index
     user_id = Auth.decode(params["jwt"])["user_id"]
     if user_id
+#       move to the model
       marker = Marker.find_by("user_id = ? AND created_at >= ?", user_id, Time.zone.now.beginning_of_day)
       user = User.find(user_id)
       if marker
+#         view object 
         render json: {
           user: {
             zombie: user.zombie
