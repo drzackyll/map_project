@@ -2,6 +2,7 @@ import React from 'react'
 
 function Loading(props) {
   function randomLoadingGif() {
+//     I would call an action creator for this. And update the store even with the loading image.
     function getRandomIntInclusive(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
