@@ -6,6 +6,7 @@ import MapWrapper from './MapWrapper'
 import Loading from './Loading'
 
 class ResultsMap extends Component {
+//   probably should move this to constructor()
   handleMapLoad = this.handleMapLoad.bind(this)
   handleMapClick = this.handleMapClick.bind(this)
   loaded = this.loaded.bind(this)
