@@ -7,6 +7,7 @@ import MapWrapper from './MapWrapper'
 import Loading from './Loading'
 
 class NewMoveMap extends Component {
+//   move these lines into a contructor method.
   handleMapLoad = this.handleMapLoad.bind(this)
   handleMapClick = this.handleMapClick.bind(this)
   loaded = this.loaded.bind(this)
@@ -23,12 +24,14 @@ class NewMoveMap extends Component {
   }
 
   handleButtonClick(event) {
+//     should just mapStateToProps with lat, and long as keys.
     const markerLat = this.props.markers.user.position.lat
     const markerLng = this.props.markers.user.position.lng
     this.props.submitMarker(markerLat, markerLng)
   }
 
   loaded() {
+//     this feels like to much logic for the component.  should be in an action creator, etc.
     const nearbyMarkersEmpty = this.props.markers.nearby.length === 0
     const locationFound = !!this.props.location.lat
 
@@ -44,6 +47,8 @@ class NewMoveMap extends Component {
   }
 
   randomZombieTalk() {
+//     feels like this should be in an action creator or in rails.
+//     Doesn't feel like this is view related.
     function getRandomIntInclusive(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
@@ -62,6 +67,7 @@ class NewMoveMap extends Component {
   }
 
   markerMessage() {
+//     This also feels like should be in rails.
     const statusIsCreated = this.props.markers.status === "created"
     const statusIsUpdated = this.props.markers.status === "updated"
 
